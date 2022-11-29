@@ -15,6 +15,6 @@ public class HumanService {
     }
 
     public List<String> getHumanList() {
-        return humanRepository.getHumanList();
+        return humanRepository.getHumanNameList();
     }
 }

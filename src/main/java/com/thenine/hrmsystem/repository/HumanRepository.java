@@ -14,7 +14,7 @@ public class HumanRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<String> getHumanList() {
+    public List<String> getHumanNameList() {
         return jdbcTemplate.queryForList("SELECT name FROM test", String.class);
     }
 }
