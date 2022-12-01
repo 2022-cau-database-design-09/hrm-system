@@ -520,3 +520,52 @@ insert into Human (id, name, birth_date, phone_number, email, academic_backgroun
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (79, 'Cherri Leathe', '1972-03-19', '989-214-9554', 'cleathe26@statcounter.com', 158);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (80, 'Marley Ricson', '1985-03-20', '625-226-8729', 'mricson27@cisco.com', 189);
 SET foreign_key_checks=1;
+
+insert into Office (ID, floor, room_number, capacity) values (1,1,102,11);
+insert into Office (ID, floor, room_number, capacity) values (2,1,103,14);
+insert into Office (ID, floor, room_number, capacity) values (3,1,104,19);
+insert into Office (ID, floor, room_number, capacity) values (4,1,105,29);
+insert into Office (ID, floor, room_number, capacity) values (5,2,201,18);
+insert into Office (ID, floor, room_number, capacity) values (6,2,202,20);
+insert into Office (ID, floor, room_number, capacity) values (7,2,203,20);
+insert into Office (ID, floor, room_number, capacity) values (8,2,204,19);
+insert into Office (ID, floor, room_number, capacity) values (9,2,205,25);
+insert into Office (ID, floor, room_number, capacity) values (10,3,301,20);
+insert into Office (ID, floor, room_number, capacity) values (11,3,302,12);
+insert into Office (ID, floor, room_number, capacity) values (12,3,303,29);
+insert into Office (ID, floor, room_number, capacity) values (13,3,304,30);
+insert into Office (ID, floor, room_number, capacity) values (14,3,305,14);
+insert into Office (ID, floor, room_number, capacity) values (15,4,401,30);
+insert into Office (ID, floor, room_number, capacity) values (16,4,402,17);
+insert into Office (ID, floor, room_number, capacity) values (17,4,403,13);
+insert into Office (ID, floor, room_number, capacity) values (18,4,404,25);
+insert into Office (ID, floor, room_number, capacity) values (19,4,405,26);
+insert into Office (ID, floor, room_number, capacity) values (20,5,501,26);
+insert into Office (ID, floor, room_number, capacity) values (21,5,502,27);
+insert into Office (ID, floor, room_number, capacity) values (22,5,503,24);
+insert into Office (ID, floor, room_number, capacity) values (23,5,504,22);
+insert into Office (ID, floor, room_number, capacity) values (24,5,505,19);
+
+insert into Department (ID, name, Office_ID) values (1,"Quality",1);
+insert into Department (ID, name, Office_ID) values (2,"Quality Assurance",2);
+insert into Department (ID, name, Office_ID) values (3,"Quality Management",3);
+insert into Department (ID, name, Office_ID) values (4,"Production",4);
+insert into Department (ID, name, Office_ID) values (5,"Production Management",5);
+insert into Department (ID, name, Office_ID) values (6,"Production Technology",6);
+insert into Department (ID, name, Office_ID) values (7,"Material",7);
+insert into Department (ID, name, Office_ID) values (8,"Sales",8);
+insert into Department (ID, name, Office_ID) values (9,"Technology",9);
+insert into Department (ID, name, Office_ID) values (10,"Accounting",10);
+insert into Department (ID, name, Office_ID) values (11,"Personnel",11);
+insert into Department (ID, name, Office_ID) values (12,"Research",12);
+insert into Department (ID, name, Office_ID) values (13,"Marketing",13);
+insert into Department (ID, name, Office_ID) values (14,"Management",14);
+insert into Department (ID, name, Office_ID) values (15,"Legal",15);
+insert into Department (ID, name, Office_ID) values (16,"Customer",16);
+
+insert into DepartmentHierarchy (parent_department, child_department) values (1,2);
+insert into DepartmentHierarchy (parent_department, child_department) values (1,3);
+insert into DepartmentHierarchy (parent_department, child_department) values (4,5);
+insert into DepartmentHierarchy (parent_department, child_department) values (4,6);
+
+
