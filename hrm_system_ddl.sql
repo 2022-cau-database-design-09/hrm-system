@@ -8,7 +8,7 @@ CREATE TABLE `Employee` (
     `ID` int AUTO_INCREMENT NOT NULL ,
     `current_position` int  NOT NULL ,
     `entrance_date` date  NOT NULL ,
-    `quit_date` date  NOT NULL ,
+    `quit_date` date ,
     PRIMARY KEY (
         `ID`
     )
