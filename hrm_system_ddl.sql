@@ -85,7 +85,7 @@ CREATE TABLE `Education` (
 CREATE TABLE `EducationType` (
     `ID` int AUTO_INCREMENT NOT NULL ,
     `name` varchar(100)  NOT NULL ,
-    `department` int  ,
+    `department` int NOT NULL  ,
     `mandatory` boolean  NOT NULL ,
     `due_date` datetime  NOT NULL ,
     PRIMARY KEY (
@@ -562,6 +562,7 @@ insert into Department (id, name, Office_ID) values (13,"마케팅",16);
 insert into Department (id, name, Office_ID) values (14,"경영",4);
 insert into Department (id, name, Office_ID) values (15,"법무",22);
 insert into Department (id, name, Office_ID) values (16,"고객",11);
+INSERT INTO Department (id, name, Office_ID) VALUES (20, "전사", 0);
 
 insert into DepartmentHierarchy (parent_department, child_department) values (1,2);
 insert into DepartmentHierarchy (parent_department, child_department) values (1,3);
@@ -669,11 +670,11 @@ INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("품�
 INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("생산이란 무엇인가", 4, true, '2022-12-31');
 INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("생산 설비 점검 방법", 4, true, '2022-12-31');
 INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("생산 효율 향상 방법", 4, true, '2022-12-31');
-INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("신입사원 입문 교육", NULL, true, '2022-12-31');
-INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("사내 필수 성교육", NULL, true, '2022-12-31');
-INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("화재 대처 요령", NULL, true, '2022-12-31');
-INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("응급환자 발생 시 대처 요령", NULL, true, '2022-12-31');
-INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("위급상황 발생 시 대처 요령", NULL, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("신입사원 입문 교육", 20, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("사내 필수 성교육", 20, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("화재 대처 요령", 20, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("응급환자 발생 시 대처 요령", 20, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("위급상황 발생 시 대처 요령", 20, true, '2022-12-31');
 
 
 INSERT INTO Education (type, employee_ID) VAlUES (8, 1);
