@@ -595,6 +595,21 @@ insert into School (ID, name) values (9,"숭실대");
 insert into School (ID, name) values (10,"경북대");
 insert into School (ID, name) values (11,"부산대");
 
+insert into DepartmentMember (department_ID, employee_ID) values (14,1);
+insert into DepartmentMember (department_ID, employee_ID) values (2,2);
+insert into DepartmentMember (department_ID, employee_ID) values (7,3);
+insert into DepartmentMember (department_ID, employee_ID) values (13,4);
+insert into DepartmentMember (department_ID, employee_ID) values (4,5);
+insert into DepartmentMember (department_ID, employee_ID) values (3,6);
+insert into DepartmentMember (department_ID, employee_ID) values (13,7);
+insert into DepartmentMember (department_ID, employee_ID) values (1,8);
+insert into DepartmentMember (department_ID, employee_ID) values (13,9);
+insert into DepartmentMember (department_ID, employee_ID) values (7,10);
+insert into DepartmentMember (department_ID, employee_ID) values (8,11);
+insert into DepartmentMember (department_ID, employee_ID) values (6,12);
+insert into DepartmentMember (department_ID, employee_ID) values (14,13);
+insert into DepartmentMember (department_ID, employee_ID) values (14,14);
+
 INSERT INTO PositionType (name) VALUES ('대표 이사');
 INSERT INTO PositionType (name) VALUES ('상무');
 INSERT INTO PositionType (name) VALUES ('이사');
