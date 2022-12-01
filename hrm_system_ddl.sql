@@ -610,6 +610,13 @@ insert into DepartmentMember (department_ID, employee_ID) values (6,12);
 insert into DepartmentMember (department_ID, employee_ID) values (14,13);
 insert into DepartmentMember (department_ID, employee_ID) values (14,14);
 
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (1,14,2,9,"2022-11-13",);
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (2,4,3,4,"2022-07-15",);
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (3,13,7,10,"2022-06-06",);
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (4,7,14,7,"2022-02-16",);
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (5,1,1,1,"2022-04-05",);
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (6,10,3,10,"2022-03-14",);
+
 INSERT INTO PositionType (name) VALUES ('대표 이사');
 INSERT INTO PositionType (name) VALUES ('상무');
 INSERT INTO PositionType (name) VALUES ('이사');
