@@ -568,20 +568,20 @@ insert into DepartmentHierarchy (parent_department, child_department) values (1,
 insert into DepartmentHierarchy (parent_department, child_department) values (4,5);
 insert into DepartmentHierarchy (parent_department, child_department) values (4,6);
 
-insert into Major (ID, name) values (1,"korean");
-insert into Major (ID, name) values (2,"english");
-insert into Major (ID, name) values (3,"math");
-insert into Major (ID, name) values (4,"physics");
-insert into Major (ID, name) values (5,"biology");
-insert into Major (ID, name) values (6,"history");
-insert into Major (ID, name) values (7,"art");
-insert into Major (ID, name) values (8,"computer science");
-insert into Major (ID, name) values (9,"electrical engineering");
-insert into Major (ID, name) values (10,"mechanical engineering");
-insert into Major (ID, name) values (11,"management");
-insert into Major (ID, name) values (12,"economy");
-insert into Major (ID, name) values (13,"statistics");
-insert into Major (ID, name) values (14,"architecture");
+insert into Major (ID, name) values (1,"생물학");
+insert into Major (ID, name) values (2,"기계공학");
+insert into Major (ID, name) values (3,"전자공학");
+insert into Major (ID, name) values (4,"컴퓨터공학");
+insert into Major (ID, name) values (5,"경영학");
+insert into Major (ID, name) values (6,"경제학");
+insert into Major (ID, name) values (7,"통계학");
+insert into Major (ID, name) values (8,"물리학");
+insert into Major (ID, name) values (9,"화학");
+insert into Major (ID, name) values (10,"로봇공학");
+insert into Major (ID, name) values (11,"컴퓨터공학");
+insert into Major (ID, name) values (12,"에너지공학");
+insert into Major (ID, name) values (13,"소프트웨어");
+insert into Major (ID, name) values (14,"건축학");
 
 insert into School (ID, name) values (1,"한양대");
 insert into School (ID, name) values (2,"서울대");
