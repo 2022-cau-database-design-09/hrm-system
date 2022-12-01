@@ -136,12 +136,12 @@ CREATE TABLE `Department` (
 
 CREATE TABLE `DepartmentHierarchy` (
     `parent_department` int  NOT NULL ,
-    `child_department` int  NOT NULL 
+    `child_department` int  NOT NULL
 );
 
 CREATE TABLE `DepartmentMember` (
     `department_ID` int  NOT NULL ,
-    `employee_ID` int  NOT NULL 
+    `employee_ID` int  NOT NULL
 );
 
 CREATE TABLE `Office` (
@@ -319,124 +319,124 @@ CREATE TABLE `Major` (
 );
 
 ALTER TABLE `Employee` ADD CONSTRAINT `fk_Employee_human_ID` FOREIGN KEY(`human_ID`)
-REFERENCES `Human` (`ID`);
+    REFERENCES `Human` (`ID`);
 
 ALTER TABLE `Employee` ADD CONSTRAINT `fk_Employee_current_position` FOREIGN KEY(`current_position`)
-REFERENCES `PositionType` (`ID`);
+    REFERENCES `PositionType` (`ID`);
 
 ALTER TABLE `Recruiting` ADD CONSTRAINT `fk_Recruiting_department` FOREIGN KEY(`department`)
-REFERENCES `Department` (`ID`);
+    REFERENCES `Department` (`ID`);
 
 ALTER TABLE `Recruiting` ADD CONSTRAINT `fk_Recruiting_type` FOREIGN KEY(`type`)
-REFERENCES `RecruitingType` (`ID`);
+    REFERENCES `RecruitingType` (`ID`);
 
 ALTER TABLE `Applicant` ADD CONSTRAINT `fk_Applicant_human_ID` FOREIGN KEY(`human_ID`)
-REFERENCES `Human` (`ID`);
+    REFERENCES `Human` (`ID`);
 
 ALTER TABLE `Applicant` ADD CONSTRAINT `fk_Applicant_recruiting_ID` FOREIGN KEY(`recruiting_ID`)
-REFERENCES `Recruiting` (`ID`);
+    REFERENCES `Recruiting` (`ID`);
 
 ALTER TABLE `Payment` ADD CONSTRAINT `fk_Payment_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `Annuity` ADD CONSTRAINT `fk_Annuity_receiver_ID` FOREIGN KEY(`receiver_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `Rating` ADD CONSTRAINT `fk_Rating_senior_ID` FOREIGN KEY(`senior_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `Rating` ADD CONSTRAINT `fk_Rating_junior_ID` FOREIGN KEY(`junior_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `Education` ADD CONSTRAINT `fk_Education_type` FOREIGN KEY(`type`)
-REFERENCES `EducationType` (`ID`);
+    REFERENCES `EducationType` (`ID`);
 
 ALTER TABLE `Education` ADD CONSTRAINT `fk_Education_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `EducationType` ADD CONSTRAINT `fk_EducationType_department` FOREIGN KEY(`department`)
-REFERENCES `Department` (`ID`);
+    REFERENCES `Department` (`ID`);
 
 ALTER TABLE `EducationHistory` ADD CONSTRAINT `fk_EducationHistory_education_ID` FOREIGN KEY(`education_ID`)
-REFERENCES `Education` (`ID`);
+    REFERENCES `Education` (`ID`);
 
 ALTER TABLE `Counselor` ADD CONSTRAINT `fk_Counselor_human_ID` FOREIGN KEY(`human_ID`)
-REFERENCES `Human` (`ID`);
+    REFERENCES `Human` (`ID`);
 
 ALTER TABLE `CounselingHistory` ADD CONSTRAINT `fk_CounselingHistory_counselor_ID` FOREIGN KEY(`counselor_ID`)
-REFERENCES `Counselor` (`ID`);
+    REFERENCES `Counselor` (`ID`);
 
 ALTER TABLE `CounselingHistory` ADD CONSTRAINT `fk_CounselingHistory_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `Department` ADD CONSTRAINT `fk_Department_office_ID` FOREIGN KEY(`office_ID`)
-REFERENCES `Office` (`ID`);
+    REFERENCES `Office` (`ID`);
 
 ALTER TABLE `DepartmentHierarchy` ADD CONSTRAINT `fk_DepartmentHierarchy_parent_department` FOREIGN KEY(`parent_department`)
-REFERENCES `Department` (`ID`);
+    REFERENCES `Department` (`ID`);
 
 ALTER TABLE `DepartmentHierarchy` ADD CONSTRAINT `fk_DepartmentHierarchy_child_department` FOREIGN KEY(`child_department`)
-REFERENCES `Department` (`ID`);
+    REFERENCES `Department` (`ID`);
 
 ALTER TABLE `DepartmentMember` ADD CONSTRAINT `fk_DepartmentMember_department_ID` FOREIGN KEY(`department_ID`)
-REFERENCES `Department` (`ID`);
+    REFERENCES `Department` (`ID`);
 
 ALTER TABLE `DepartmentMember` ADD CONSTRAINT `fk_DepartmentMember_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `VacationAvailable` ADD CONSTRAINT `fk_VacationAvailable_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `VacationAvailable` ADD CONSTRAINT `fk_VacationAvailable_vacation_type` FOREIGN KEY(`vacation_type`)
-REFERENCES `VacationType` (`ID`);
+    REFERENCES `VacationType` (`ID`);
 
 ALTER TABLE `VacationHistory` ADD CONSTRAINT `fk_VacationHistory_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `VacationHistory` ADD CONSTRAINT `fk_VacationHistory_vacation_type` FOREIGN KEY(`vacation_type`)
-REFERENCES `VacationType` (`ID`);
+    REFERENCES `VacationType` (`ID`);
 
 ALTER TABLE `Incentive` ADD CONSTRAINT `fk_Incentive_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `SearchHistory` ADD CONSTRAINT `fk_SearchHistory_type` FOREIGN KEY(`type`)
-REFERENCES `SearchType` (`ID`);
+    REFERENCES `SearchType` (`ID`);
 
 ALTER TABLE `SearchHistory` ADD CONSTRAINT `fk_SearchHistory_caller` FOREIGN KEY(`caller`)
-REFERENCES `User` (`ID`);
+    REFERENCES `User` (`ID`);
 
 ALTER TABLE `PaymentHistory` ADD CONSTRAINT `fk_PaymentHistory_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `DepartmentHistory` ADD CONSTRAINT `fk_DepartmentHistory_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `DepartmentHistory` ADD CONSTRAINT `fk_DepartmentHistory_prev_department` FOREIGN KEY(`prev_department`)
-REFERENCES `Department` (`ID`);
+    REFERENCES `Department` (`ID`);
 
 ALTER TABLE `DepartmentHistory` ADD CONSTRAINT `fk_DepartmentHistory_current_department` FOREIGN KEY(`current_department`)
-REFERENCES `Department` (`ID`);
+    REFERENCES `Department` (`ID`);
 
 ALTER TABLE `PromotionHistory` ADD CONSTRAINT `fk_PromotionHistory_prev_position` FOREIGN KEY(`prev_position`)
-REFERENCES `PositionType` (`ID`);
+    REFERENCES `PositionType` (`ID`);
 
 ALTER TABLE `PromotionHistory` ADD CONSTRAINT `fk_PromotionHistory_current_position` FOREIGN KEY(`current_position`)
-REFERENCES `PositionType` (`ID`);
+    REFERENCES `PositionType` (`ID`);
 
 ALTER TABLE `User` ADD CONSTRAINT `fk_User_role_ID` FOREIGN KEY(`role_ID`)
-REFERENCES `UserRole` (`ID`);
+    REFERENCES `UserRole` (`ID`);
 
 ALTER TABLE `CommuteTime` ADD CONSTRAINT `fk_CommuteTime_employee_ID` FOREIGN KEY(`employee_ID`)
-REFERENCES `Employee` (`ID`);
+    REFERENCES `Employee` (`ID`);
 
 ALTER TABLE `Human` ADD CONSTRAINT `fk_Human_academic_background` FOREIGN KEY(`academic_background`)
-REFERENCES `AcademicBackground` (`ID`);
+    REFERENCES `AcademicBackground` (`ID`);
 
 ALTER TABLE `AcademicBackground` ADD CONSTRAINT `fk_AcademicBackground_school_ID` FOREIGN KEY(`school_ID`)
-REFERENCES `School` (`ID`);
+    REFERENCES `School` (`ID`);
 
 ALTER TABLE `AcademicBackground` ADD CONSTRAINT `fk_AcademicBackground_major_ID` FOREIGN KEY(`major_ID`)
-REFERENCES `Major` (`ID`);
+    REFERENCES `Major` (`ID`);
 
 SET foreign_key_checks=0;
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (1,"우유윤","1989-05-27","010-2511-5276","cxggbw8576@cau.ac.kr",19);
@@ -531,32 +531,33 @@ insert into Human (id, name, birth_date, phone_number, email, academic_backgroun
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (90,"홍영빈","1992-01-03","010-352-1693","xxeumzf4688@gmail.com",156);
 SET foreign_key_checks=1;
 
-insert into Office (ID, floor, room_number, capacity) values (1,1,102,11);
-insert into Office (ID, floor, room_number, capacity) values (2,1,103,14);
-insert into Office (ID, floor, room_number, capacity) values (3,1,104,19);
-insert into Office (ID, floor, room_number, capacity) values (4,1,105,29);
-insert into Office (ID, floor, room_number, capacity) values (5,2,201,18);
-insert into Office (ID, floor, room_number, capacity) values (6,2,202,20);
-insert into Office (ID, floor, room_number, capacity) values (7,2,203,20);
-insert into Office (ID, floor, room_number, capacity) values (8,2,204,19);
-insert into Office (ID, floor, room_number, capacity) values (9,2,205,25);
-insert into Office (ID, floor, room_number, capacity) values (10,3,301,20);
-insert into Office (ID, floor, room_number, capacity) values (11,3,302,12);
-insert into Office (ID, floor, room_number, capacity) values (12,3,303,29);
-insert into Office (ID, floor, room_number, capacity) values (13,3,304,30);
-insert into Office (ID, floor, room_number, capacity) values (14,3,305,14);
-insert into Office (ID, floor, room_number, capacity) values (15,4,401,30);
-insert into Office (ID, floor, room_number, capacity) values (16,4,402,17);
-insert into Office (ID, floor, room_number, capacity) values (17,4,403,13);
-insert into Office (ID, floor, room_number, capacity) values (18,4,404,25);
-insert into Office (ID, floor, room_number, capacity) values (19,4,405,26);
-insert into Office (ID, floor, room_number, capacity) values (20,5,501,26);
-insert into Office (ID, floor, room_number, capacity) values (21,5,502,27);
-insert into Office (ID, floor, room_number, capacity) values (22,5,503,24);
-insert into Office (ID, floor, room_number, capacity) values (23,5,504,22);
-insert into Office (ID, floor, room_number, capacity) values (24,5,505,19);
+insert into Office (floor, room_number, capacity) values (0, 0, 0);
+insert into Office (floor, room_number, capacity) values (1,102,11);
+insert into Office (floor, room_number, capacity) values (1,103,14);
+insert into Office (floor, room_number, capacity) values (1,104,19);
+insert into Office (floor, room_number, capacity) values (1,105,29);
+insert into Office (floor, room_number, capacity) values (2,201,18);
+insert into Office (floor, room_number, capacity) values (2,202,20);
+insert into Office (floor, room_number, capacity) values (2,203,20);
+insert into Office (floor, room_number, capacity) values (2,204,19);
+insert into Office (floor, room_number, capacity) values (2,205,25);
+insert into Office (floor, room_number, capacity) values (3,301,20);
+insert into Office (floor, room_number, capacity) values (3,302,12);
+insert into Office (floor, room_number, capacity) values (3,303,29);
+insert into Office (floor, room_number, capacity) values (3,304,30);
+insert into Office (floor, room_number, capacity) values (3,305,14);
+insert into Office (floor, room_number, capacity) values (4,401,30);
+insert into Office (floor, room_number, capacity) values (4,402,17);
+insert into Office (floor, room_number, capacity) values (4,403,13);
+insert into Office (floor, room_number, capacity) values (4,404,25);
+insert into Office (floor, room_number, capacity) values (4,405,26);
+insert into Office (floor, room_number, capacity) values (5,501,26);
+insert into Office (floor, room_number, capacity) values (5,502,27);
+insert into Office (floor, room_number, capacity) values (5,503,24);
+insert into Office (floor, room_number, capacity) values (5,504,22);
+insert into Office (floor, room_number, capacity) values (5,505,19);
 
-insert into Department (id, name, Office_ID) values (1,"품질",1);
+insert into Department (id, name, Office_ID) values (1,"품질",6);
 insert into Department (id, name, Office_ID) values (2,"품질보증",12);
 insert into Department (id, name, Office_ID) values (3,"품질경영",24);
 insert into Department (id, name, Office_ID) values (4,"생산",5);
@@ -572,7 +573,7 @@ insert into Department (id, name, Office_ID) values (13,"마케팅",16);
 insert into Department (id, name, Office_ID) values (14,"경영",4);
 insert into Department (id, name, Office_ID) values (15,"법무",22);
 insert into Department (id, name, Office_ID) values (16,"고객",11);
-INSERT INTO Department (id, name, Office_ID) VALUES (20, "전사", 0);
+INSERT INTO Department (id, name, Office_ID) VALUES (20, "전사", 1);
 
 insert into DepartmentHierarchy (parent_department, child_department) values (1,2);
 insert into DepartmentHierarchy (parent_department, child_department) values (1,3);
@@ -606,6 +607,32 @@ insert into School (ID, name) values (9,"숭실대");
 insert into School (ID, name) values (10,"경북대");
 insert into School (ID, name) values (11,"부산대");
 
+INSERT INTO PositionType (name) VALUES ('대표 이사');
+INSERT INTO PositionType (name) VALUES ('상무');
+INSERT INTO PositionType (name) VALUES ('이사');
+INSERT INTO PositionType (name) VALUES ('차장');
+INSERT INTO PositionType (name) VALUES ('부장');
+INSERT INTO PositionType (name) VALUES ('팀장');
+INSERT INTO PositionType (name) VALUES ('파트장');
+INSERT INTO PositionType (name) VALUES ('과장');
+INSERT INTO PositionType (name) VALUES ('대리');
+INSERT INTO PositionType (name) VALUES ('사원');
+
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (1, 1, '2022-08-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (2, 2, '2022-10-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (3, 3, '2022-09-15', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (4, 4, '2022-10-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (5, 5, '2022-10-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (6, 6, '2022-10-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (7, 7, '2022-10-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (8, 8, '2022-11-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (9, 9, '2022-11-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (10, 10, '2022-11-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (11, 10, '2022-11-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (12, 10, '2022-11-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (13, 10, '2022-11-01', NULL);
+INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (14, 9, '2022-11-01', NULL);
+
 insert into DepartmentMember (department_ID, employee_ID) values (14,1);
 insert into DepartmentMember (department_ID, employee_ID) values (2,2);
 insert into DepartmentMember (department_ID, employee_ID) values (7,3);
@@ -621,12 +648,12 @@ insert into DepartmentMember (department_ID, employee_ID) values (6,12);
 insert into DepartmentMember (department_ID, employee_ID) values (14,13);
 insert into DepartmentMember (department_ID, employee_ID) values (14,14);
 
-insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (1,14,2,9,"2022-11-13",);
-insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (2,4,3,4,"2022-07-15",);
-insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (3,13,7,10,"2022-06-06",);
-insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (4,7,14,7,"2022-02-16",);
-insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (5,1,1,1,"2022-04-05",);
-insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (6,10,3,10,"2022-03-14",);
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (1,14,2,9,"2022-11-13");
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (2,4,3,4,"2022-07-15");
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (3,13,7,10,"2022-06-06");
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (4,7,14,7,"2022-02-16");
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (5,1,1,1,"2022-04-05");
+insert into DepartmentHistory (ID, employee_ID, prev_department, current_department, created_at) values (6,10,3,10,"2022-03-14");
 
 insert into AcademicBackground (ID, type, school_ID, major_ID) values (1,"대졸",1,1);
 insert into AcademicBackground (ID, type, school_ID, major_ID) values (2,"대졸",1,2);
@@ -782,34 +809,6 @@ insert into AcademicBackground (ID, type, school_ID, major_ID) values (151,"대�
 insert into AcademicBackground (ID, type, school_ID, major_ID) values (152,"대졸",11,12);
 insert into AcademicBackground (ID, type, school_ID, major_ID) values (153,"대졸",11,13);
 insert into AcademicBackground (ID, type, school_ID, major_ID) values (154,"대졸",11,14);
-insert into AcademicBackground (ID, type, school_ID, major_ID) values (155,"중졸",NULL,NULL);
-insert into AcademicBackground (ID, type, school_ID, major_ID) values (156,"고졸",NULL,NULL);
-
-INSERT INTO PositionType (name) VALUES ('대표 이사');
-INSERT INTO PositionType (name) VALUES ('상무');
-INSERT INTO PositionType (name) VALUES ('이사');
-INSERT INTO PositionType (name) VALUES ('차장');
-INSERT INTO PositionType (name) VALUES ('부장');
-INSERT INTO PositionType (name) VALUES ('팀장');
-INSERT INTO PositionType (name) VALUES ('파트장');
-INSERT INTO PositionType (name) VALUES ('과장');
-INSERT INTO PositionType (name) VALUES ('대리');
-INSERT INTO PositionType (name) VALUES ('사원');
-
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (1, 1, '2022-08-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (2, 2, '2022-10-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (3, 3, '2022-09-15', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (4, 4, '2022-10-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (5, 5, '2022-10-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (6, 6, '2022-10-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (7, 7, '2022-10-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (8, 8, '2022-11-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (9, 9, '2022-11-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (10, 10, '2022-11-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (11, 10, '2022-11-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (12, 10, '2022-11-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (13, 10, '2022-11-01', NULL);
-INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (14, 9, '2022-11-01', NULL);
 
 INSERT INTO Counselor (human_ID,status) VALUES (71, 'mental');
 INSERT INTO Counselor (human_ID,status) VALUES (72, 'mental');
