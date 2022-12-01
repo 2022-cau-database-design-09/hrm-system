@@ -456,7 +456,7 @@ insert into Human (id, name, birth_date, phone_number, email, academic_backgroun
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (15,"이규윤","1981-03-03","010-189-0706","ijipf84@naver.com",143);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (16,"장구현","1974-10-08","010-8026-1554","emuvn17@naver.com",101);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (17,"좌성우","1980-08-15","010-0857-8930","dmbppwe8345@naver.com",152);
-insert into Human (id, name, birth_date, phone_number, email, academic_background) values (18,"이구희","1970-08-10","010-6771-1627","cprjbxp92@naver.com",155);
+insert into Human (id, name, birth_date, phone_number, email, academic_background) values (18,"이구희","1970-08-10","010-6771-1627","cprjbxp92@naver.com",15);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (19,"우규훈","1984-05-10","010-2717-5832","rzjpxiogv3@naver.com",119);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (20,"노정아","1997-03-13","010-621-3155","zpowkji30@gmail.com",123);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (21,"권규선","1972-09-08","010-1809-5341","axxmn4139@naver.com",89);
@@ -495,12 +495,12 @@ insert into Human (id, name, birth_date, phone_number, email, academic_backgroun
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (54,"홍춘빈","1986-11-09","010-160-9894","llmsqsghm095@cau.ac.kr",120);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (55,"백영현","1975-02-11","010-1760-4121","vzhcpqug302@cau.ac.kr",85);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (56,"권재균","1971-02-09","010-1725-4455","tkuqpz0081@naver.com",89);
-insert into Human (id, name, birth_date, phone_number, email, academic_background) values (57,"송성결","1980-08-26","010-3354-5065","enemw5@naver.com",156);
+insert into Human (id, name, birth_date, phone_number, email, academic_background) values (57,"송성결","1980-08-26","010-3354-5065","enemw5@naver.com",76);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (58,"백무용","1996-10-11","010-063-6437","wafxw@gmail.com",9);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (59,"신영민","1985-02-05","010-531-2888","wehtxdz0995@cau.ac.kr",122);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (60,"박형균","1979-04-15","010-3449-4905","lqadojs8015@gmail.com",31);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (61,"홍광현","1989-03-19","010-7353-2515","ropbyjz88@naver.com",107);
-insert into Human (id, name, birth_date, phone_number, email, academic_background) values (62,"홍성우","1983-03-17","010-7233-5150","uoffv3@cau.ac.kr",155);
+insert into Human (id, name, birth_date, phone_number, email, academic_background) values (62,"홍성우","1983-03-17","010-7233-5150","uoffv3@cau.ac.kr",19);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (63,"백형빈","1977-06-23","010-0438-1033","wvnhkebmt@gmail.com",118);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (64,"홍성빈","1977-07-01","010-346-4529","knhfxa58@cau.ac.kr",29);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (65,"송구아","1976-08-17","010-3654-9061","oqkdvf0933@cau.ac.kr",62);
@@ -512,7 +512,7 @@ insert into Human (id, name, birth_date, phone_number, email, academic_backgroun
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (71,"우유선","1970-08-28","010-9823-2834","mtcjg76@cau.ac.kr",99);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (72,"좌광우","1999-04-02","010-220-3168","uwjxnpq91@cau.ac.kr",151);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (73,"유구현","1980-09-13","010-5101-9303","kutappw277@cau.ac.kr",64);
-insert into Human (id, name, birth_date, phone_number, email, academic_background) values (74,"김유우","1996-12-02","010-511-9730","tfhvxxyt8@cau.ac.kr",156);
+insert into Human (id, name, birth_date, phone_number, email, academic_background) values (74,"김유우","1996-12-02","010-511-9730","tfhvxxyt8@cau.ac.kr",43);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (75,"전규수","1988-04-03","010-0543-1680","bjrqgepp5@naver.com",62);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (76,"권재석","1993-01-10","010-704-7898","vrtnovidz31@gmail.com",2);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (77,"권재아","1983-01-19","010-847-9014","fsrqt68@naver.com",139);
