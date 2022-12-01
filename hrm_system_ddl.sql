@@ -26,7 +26,7 @@ CREATE TABLE `Recruiting` (
 );
 
 CREATE TABLE `RecruitingType` (
-    `ID` int  NOT NULL ,
+    `ID` int AUTO_INCREMENT NOT NULL ,
     `type` varchar(50)  NOT NULL ,
     PRIMARY KEY (
         `ID`
@@ -34,7 +34,7 @@ CREATE TABLE `RecruitingType` (
 );
 
 CREATE TABLE `Applicant` (
-    `human_ID` int  NOT NULL ,
+    `human_ID` int AUTO_INCREMENT  NOT NULL ,
     `recruiting_ID` int  NOT NULL ,
     `pass` boolean  NOT NULL ,
     PRIMARY KEY (
@@ -75,7 +75,7 @@ CREATE TABLE `Rating` (
 -- Employee should take this course
 CREATE TABLE `Education` (
     `ID` bigint AUTO_INCREMENT NOT NULL ,
-    `type` int  NOT NULL ,
+    `type` int NOT NULL ,
     `employee_ID` int  NOT NULL ,
     PRIMARY KEY (
         `ID`
@@ -85,7 +85,7 @@ CREATE TABLE `Education` (
 CREATE TABLE `EducationType` (
     `ID` int AUTO_INCREMENT NOT NULL ,
     `name` varchar(100)  NOT NULL ,
-    `department` int  NOT NULL ,
+    `department` int  ,
     `mandatory` boolean  NOT NULL ,
     `due_date` datetime  NOT NULL ,
     PRIMARY KEY (
@@ -115,8 +115,8 @@ CREATE TABLE `CounselingHistory` (
     `ID` bigint AUTO_INCREMENT NOT NULL ,
     `counselor_ID` int  NOT NULL ,
     `employee_ID` int  NOT NULL ,
-    `name` varchar(200)  NOT NULL ,
-    `description` text  NOT NULL ,
+    `name` varchar(200)  ,
+    `description` text  ,
     `start_time` datetime  NOT NULL ,
     `end_time` datetime  NOT NULL ,
     `created_at` datetime  NOT NULL ,
@@ -642,3 +642,104 @@ INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALU
 INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (12, 10, '2022-11-01', NULL);
 INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (13, 10, '2022-11-01', NULL);
 INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (14, 9, '2022-11-01', NULL);
+
+INSERT INTO Counselor (human_ID,status) VALUES (71, 'mental');
+INSERT INTO Counselor (human_ID,status) VALUES (72, 'mental');
+INSERT INTO Counselor (human_ID,status) VALUES (73, 'mental');
+INSERT INTO Counselor (human_ID,status) VALUES (74, 'mental');
+INSERT INTO Counselor (human_ID,status) VALUES (75, 'mental');
+
+INSERT INTO CounselingHistory (counselor_ID, employee_ID, start_time, end_time, created_at) VALUES (1, 1, '2022-11-28 15:00:00','2022-11-28 16:00:00','2022-11-28 16:05:00');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (2, 3,'2022-11-28 15:00:00','2022-11-28 16:00:00','2022-11-28 16:05:12');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (3, 4,'2022-11-28 15:00:00','2022-11-28 16:00:00','2022-11-28 16:05:09');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (4, 2,'2022-11-28 15:00:00','2022-11-28 16:00:00','2022-11-28 16:06:07');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (5, 13, '2022-11-28 15:00:00','2022-11-28 16:00:00','2022-11-28 16:06:21');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (1, 14, '2022-11-28 16:00:00','2022-11-28 17:00:00','2022-11-28 17:04:34');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (2, 8, '2022-11-28 16:00:00','2022-11-28 17:00:00','2022-11-28 17:05:24');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (3, 9,'2022-11-28 16:00:00','2022-11-28 17:00:00','2022-11-28 17:05:21');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (4, 5,'2022-11-28 16:00:00','2022-11-28 17:00:00','2022-11-28 17:05:57');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (5, 6, '2022-11-28 16:00:00','2022-11-28 17:00:00','2022-11-28 17:06:12');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (1, 7, '2022-11-29 15:00:00','2022-11-28 16:00:00','2022-11-28 16:05:10');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (2, 8,'2022-11-29 15:00:00','2022-11-28 16:00:00','2022-11-28 16:05:23');
+INSERT INTO CounselingHistory (counselor_ID, employee_ID,start_time, end_time, created_at) VALUES (3, 13,'2022-11-29 15:00:00','2022-11-28 16:00:00','2022-11-28 16:05:34');
+
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("품질이란 무엇인가", 1, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("품질 향상 방법 고안", 1, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("품질 관리 방법", 1, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("생산이란 무엇인가", 4, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("생산 설비 점검 방법", 4, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("생산 효율 향상 방법", 4, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("신입사원 입문 교육", NULL, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("사내 필수 성교육", NULL, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("화재 대처 요령", NULL, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("응급환자 발생 시 대처 요령", NULL, true, '2022-12-31');
+INSERT INTO EducationType (name, department, mandatory, due_date) VALUES ("위급상황 발생 시 대처 요령", NULL, true, '2022-12-31');
+
+
+INSERT INTO Education (type, employee_ID) VAlUES (8, 1);
+INSERT INTO Education (type, employee_ID) VAlUES (8, 2);
+INSERT INTO Education (type, employee_ID) VAlUES (8, 3);
+INSERT INTO Education (type, employee_ID) VAlUES (8, 4);
+INSERT INTO Education (type, employee_ID) VAlUES (8, 5);
+INSERT INTO Education (type, employee_ID) VAlUES (9, 1);
+INSERT INTO Education (type, employee_ID) VAlUES (9, 2);
+INSERT INTO Education (type, employee_ID) VAlUES (9, 3);
+INSERT INTO Education (type, employee_ID) VAlUES (9, 4);
+INSERT INTO Education (type, employee_ID) VAlUES (9, 5);
+INSERT INTO Education (type, employee_ID) VAlUES (10, 1);
+INSERT INTO Education (type, employee_ID) VAlUES (10, 2);
+INSERT INTO Education (type, employee_ID) VAlUES (8, 3);
+INSERT INTO Education (type, employee_ID) VAlUES (8, 4);
+INSERT INTO Education (type, employee_ID) VAlUES (8, 5);
+
+
+
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (1, '2022-12-01 16:58:11');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (2, '2022-12-01 16:58:11');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (3, '2022-12-01 16:58:11');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (4, '2022-12-01 16:58:11');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (5, '2022-12-01 16:58:13');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (6, '2022-12-01 16:58:15');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (7, '2022-12-01 16:58:15');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (8, '2022-12-01 16:58:20');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (9, '2022-12-01 16:58:21');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (10, '2022-12-01 16:58:22');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (11, '2022-12-01 16:58:30');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (12, '2022-12-01 16:58:59');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (13, '2022-12-01 16:59:00');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (14, '2022-12-01 16:59:11');
+INSERT INTO EducationHistory (education_ID, created_at) VALUES (15, '2022-12-01 16:59:13');
+
+INSERT INTO RecruitingType(ID, type) VALUES (1,"인턴십");
+INSERT INTO RecruitingType(ID, type) VALUES (2,"상반기 공채 경력직");
+INSERT INTO RecruitingType(ID, type) VALUES (3,"상반기 공채 신입");
+INSERT INTO Recruitingtype(ID, type) VALUES (4,"하반기 공채 경력직");
+INSERT INTO RecruitingType(ID, type) VALUES (5,"하반기 공채 신입");
+INSERT INTO RecruitingType(ID, type) VALUES (6,"특채");
+
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (1, 1, '2022-09-01 09:00:00', '2022-12-21 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (2, 1, '2022-09-01 09:00:00', '2022-12-21 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (3, 1, '2022-09-01 09:00:00', '2022-12-21 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (4, 1, '2022-09-01 09:00:00', '2022-12-21 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (5, 1, '2022-09-01 09:00:00', '2022-12-21 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (1, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (2, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (3, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (4, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (5, 5,'2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (7, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (8, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (9, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (10, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+INSERT INTO Recruiting (department, type, start_time, end_time) VALUES (11, 5, '2022-09-02 13:00:00', '2022-10-31 18:00:00');
+
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (60,1,true);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (61,1,true);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (62,1,false);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (63,1,false);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (64,1,true);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (65,2,true);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (66,2,false);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (67,2,false);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (68,2,false);
+INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (69,2,false);
