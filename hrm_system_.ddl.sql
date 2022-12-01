@@ -582,3 +582,16 @@ insert into Major (ID, name) values (11,"management");
 insert into Major (ID, name) values (12,"economy");
 insert into Major (ID, name) values (13,"statistics");
 insert into Major (ID, name) values (14,"architecture");
+
+insert into School (ID, name) values (1,"korea");
+insert into School (ID, name) values (2,"yonsei");
+insert into School (ID, name) values (3,"seoul");
+insert into School (ID, name) values (4,"hanyang");
+insert into School (ID, name) values (5,"chungang");
+insert into School (ID, name) values (6,"sogang");
+insert into School (ID, name) values (7,"sungkyunkwan");
+insert into School (ID, name) values (8,"kyunghee");
+insert into School (ID, name) values (9,"konkuk");
+insert into School (ID, name) values (10,"soongsil");
+insert into School (ID, name) values (11,"high school graduate");
+insert into School (ID, name) values (12,"middle school graduate");
