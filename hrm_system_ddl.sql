@@ -595,3 +595,14 @@ insert into School (ID, name) values (9,"konkuk");
 insert into School (ID, name) values (10,"soongsil");
 insert into School (ID, name) values (11,"high school graduate");
 insert into School (ID, name) values (12,"middle school graduate");
+
+INSERT INTO PositionType (name) VALUES ('대표 이사');
+INSERT INTO PositionType (name) VALUES ('상무');
+INSERT INTO PositionType (name) VALUES ('이사');
+INSERT INTO PositionType (name) VALUES ('차장');
+INSERT INTO PositionType (name) VALUES ('부장');
+INSERT INTO PositionType (name) VALUES ('팀장');
+INSERT INTO PositionType (name) VALUES ('파트장');
+INSERT INTO PositionType (name) VALUES ('과장');
+INSERT INTO PositionType (name) VALUES ('대리');
+INSERT INTO PositionType (name) VALUES ('사원');
