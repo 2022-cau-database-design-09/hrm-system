@@ -910,3 +910,106 @@ INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (66,2,false);
 INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (67,2,false);
 INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (68,2,false);
 INSERT INTO Applicant (human_ID, recruiting_ID, pass) VALUES (69,2,false);
+
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (1,'연차휴가','24:00:00');
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (2,'공가','24:00:00');
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (3,'병가','24:00:00');
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (4,'여름휴가','72:00:00');
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (5,'연말휴가','48:00:00');
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (6,'경조휴가','24:00:00');
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (7,'생리휴가','24:00:00');
+INSERT INTO VacationType (ID, name, vacation_time) VALUES (8,'특별휴가','24:00:00');
+
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (1, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (1, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (1, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (1, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (1, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (3, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (3, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (3, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (5, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (5, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (5, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (6, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (6, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (6, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (7, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (7, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (7, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (8, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (8, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (8, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (8, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (10, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (10, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (11, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (11, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (11, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (11, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (12, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (12, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (12, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (12, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (14, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (14, 1,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (1, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (2, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (3, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (4, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (5, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (6, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (7, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (8, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (9, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (10, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (11, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (12, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (13, 5,'2022-12-31 23:59:59');
+INSERT INTO VacationAvailable (employee_ID, vacation_type, remaining_time) VALUES (14, 5,'2022-12-31 23:59:59');
+
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (14, 1, '2022-01-28');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (6, 7, '2022-02-03');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (6, 1, '2022-02-04');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (10, 2, '2022-02-08');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (9, 3, '2022-03-18');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (14, 4, '2022-01-31');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (6, 4, '2022-06-30');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (11, 3, '2022-07-07');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (10, 4, '2022-07-20');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (8, 3, '2022-08-31');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (14, 1, '2022-08-31');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (9, 1, '2022-09-07');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (9, 7, '2022-09-08');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (13, 2, '2022-10-06');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (1, 1, '2022-10-24');
+INSERT INTO VacationHistory (employee_ID, vacation_type,created_at) VALUES (10, 2, '2022-11-02');
+
+INSERT INTO Payment (employee_ID, salary) VALUES (1, 560000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (2, 210000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (3, 187000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (4, 150000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (5, 117000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (6, 90000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (7, 79000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (8, 75000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (9, 56000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (10, 45000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (11, 35000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (12, 27000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (13, 26000000);
+INSERT INTO Payment (employee_ID, salary) VALUES (14, 42000000);
+
+INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (1, 550000000, 560000000,'2022-10-01 09:23:16');
+INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (2, 190000000, 210000000, '2022-11-01 15:41:13');
+INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (3, 160000000, 187000000, '2022-10-01 10:01:44');
+INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (4, 123000000, 150000000, '2022-11-01 11:00:01');
+INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (5, 85000000, 117000000, '2022-11-02 13:21:59');
+INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (6, 78000000, 90000000, '2022-11-02 13:54:22');
+INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (7, 56000000, 79000000, '2022-11-02 15:12:04');
+
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("명절", 1, '2022-09-10', 2000000)
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 1, '2022-10-15', 20000000)
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 3, '2022-10-15', 10000000)
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 2, '2022-10-15', 5000000)
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 4, '2022-10-15', 5000000)
