@@ -438,6 +438,19 @@ ALTER TABLE `AcademicBackground` ADD CONSTRAINT `fk_AcademicBackground_school_ID
 ALTER TABLE `AcademicBackground` ADD CONSTRAINT `fk_AcademicBackground_major_ID` FOREIGN KEY(`major_ID`)
     REFERENCES `Major` (`ID`);
 
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` TRIGGER `promotionhistory_AFTER_UPDATE` AFTER UPDATE ON `employee` FOR EACH ROW 
+BEGIN
+	INSERT INTO PromotionHistory (prev_position, current_position, created_at) VALUES 
+    (OLD.Employee.current_position, new.Employee.current_position, now());
+END; //
+
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` TRIGGER `vacationhistory_AFTER_UPDATE` AFTER UPDATE ON `vacationavailable` FOR EACH ROW BEGIN
+	INSERT INTO VacationHistory (employee_ID, vacation_type, created_at) VALUES 
+    (old.vacationAvailable.employee_ID, old.vacationAvailable.vacation_type, now());
+END; //
+
 SET foreign_key_checks=0;
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (1,"우유윤","1989-05-27","010-2511-5276","cxggbw8576@cau.ac.kr",19);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (2,"신영석","1985-07-04","010-2313-7427","nrvystm2860@cau.ac.kr",5);
@@ -1008,8 +1021,8 @@ INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at
 INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (6, 78000000, 90000000, '2022-11-02 13:54:22');
 INSERT INTO PaymentHistory (employee_ID, prev_salary, current_salary, created_at) VALUES (7, 56000000, 79000000, '2022-11-02 15:12:04');
 
-INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("명절", 1, '2022-09-10', 2000000)
-INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 1, '2022-10-15', 20000000)
-INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 3, '2022-10-15', 10000000)
-INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 2, '2022-10-15', 5000000)
-INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 4, '2022-10-15', 5000000)
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("명절", 1, '2022-09-10', 2000000);
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 1, '2022-10-15', 20000000);
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 3, '2022-10-15', 10000000);
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 2, '2022-10-15', 5000000);
+INSERT INTO Incentive (type, employee_ID, given_date, amount) VALUES ("성과금", 4, '2022-10-15', 5000000);
