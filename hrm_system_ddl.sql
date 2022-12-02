@@ -439,14 +439,14 @@ ALTER TABLE `AcademicBackground` ADD CONSTRAINT `fk_AcademicBackground_major_ID`
     REFERENCES `Major` (`ID`);
 
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` TRIGGER `promotionhistory_AFTER_UPDATE` AFTER UPDATE ON `employee` FOR EACH ROW 
+CREATE TRIGGER `promotionhistory_AFTER_UPDATE` AFTER UPDATE ON `employee` FOR EACH ROW 
 BEGIN
 	INSERT INTO PromotionHistory (prev_position, current_position, created_at) VALUES 
     (OLD.Employee.current_position, new.Employee.current_position, now());
 END; //
 
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` TRIGGER `vacationhistory_AFTER_UPDATE` AFTER UPDATE ON `vacationavailable` FOR EACH ROW BEGIN
+CREATE TRIGGER `vacationhistory_AFTER_UPDATE` AFTER UPDATE ON `vacationavailable` FOR EACH ROW BEGIN
 	INSERT INTO VacationHistory (employee_ID, vacation_type, created_at) VALUES 
     (old.vacationAvailable.employee_ID, old.vacationAvailable.vacation_type, now());
 END; //
