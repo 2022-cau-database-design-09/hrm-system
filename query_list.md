@@ -57,6 +57,7 @@ DELIMITER ;
 ```
 2. (송섬균) 공통점(학교, 직급, 부서, 받은 교육)을 가진 사람들 목록 리턴 : 친해지고 싶은 사람들의 주변인들부터 알아가면 친해지기 쉽다
 3. (조언욱) 임직원의 남은 총 휴가 시간 리턴
+```
 --휴가 타입에 따라 휴가 일수를 반환
 DELIMITER //
 DROP FUNCTION TRANS_TYPE;
@@ -82,6 +83,8 @@ RETURN
 				THEN 1
 		END//
 DELIMITER ;
+```
+```
 -- 임직원의 남은 총 휴가를 반환 
 DELIMITER //
 DROP FUNCTION IF EXISTS TOTAL_VACATION;
@@ -100,7 +103,7 @@ BEGIN
 END//
 DELIMITER ;
 -- 임직원의 남은 총 휴가를 반환 
-
+```
 ## Trigger
 1. (권구현) Applicant가 pass 되었을때 임직원으로 배치 or 급여 변동시 로그 테이블에 기록
 2. (조언욱) 임직원의 진급 시 로그 테이블에 기록
