@@ -7,6 +7,33 @@
 
 ## Function
 1. (정석우) 임직원의 한 달 근무 시간 통계 리턴
+```
+DELIMITER //
+DROP FUNCTION IF EXISTS getMonthlyWorkTime;
+CREATE FUNCTION getMonthlyWorkTime (getType VARCHAR(20), ID INT) RETURNS TIME
+BEGIN
+    DECLARE checkStartTime DATETIME;
+    DECLARE checkEndTime DATETIME;
+
+    IF getType = 'fixedRange' THEN
+            SET checkStartTime = CURDATE() - INTERVAL 30 day;
+            SET checkEndTime = CURDATE() + INTERVAL 1 day;
+    ELSEIF getType = 'thisMonth' THEN
+            SET checkStartTime = LAST_DAY(CURDATE() - INTERVAL 1 MONTH) + INTERVAL 1 DAY;
+            SET checkEndTime = LAST_DAY(CURDATE());
+    END IF;
+
+    RETURN IFNULL((
+            SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(end_time) - TIME_TO_SEC(start_time)))
+            FROM CommuteTime
+            WHERE employee_ID = ID
+            AND (checkStartTime <= CommuteTime.start_time AND CommuteTime.end_time <= checkEndTime)
+            GROUP BY employee_ID
+        ), '00:00:00');
+
+END //
+DELIMITER ;
+```
 2. (송섬균) 공통점(학교, 직급, 부서, 받은 교육)을 가진 사람들 목록 리턴 : 친해지고 싶은 사람들의 주변인들부터 알아가면 친해지기 쉽다
 3. (조언욱) 임직원의 남은 총 휴가 시간 리턴
 
