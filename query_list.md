@@ -2,6 +2,27 @@
 
 ## Procedure
 1. (정석우) 임직원의 연봉 n% 인상 프로시저
+```
+DROP PROCEDURE IF EXISTS `INCREASE_PAYMENT`;
+CREATE PROCEDURE `INCREASE_PAYMENT` (ID INTEGER, incRate FLOAT)
+BEGIN
+    DECLARE existingPayment BIGINT;
+    DECLARE newPayment BIGINT;
+    DECLARE EXIT HANDLER FOR NOT FOUND
+        BEGIN
+            ROLLBACK;
+            SELECT CONCAT('No Employee payment found with id', ID);
+        END;
+
+    SET existingPayment = IFNULL((SELECT salary FROM Payment WHERE employee_ID = ID), -1);
+    IF existingPayment != -1 THEN
+        SET newPayment = existingPayment * (1 + incRate * 0.01);
+        UPDATE Payment SET salary = newPayment WHERE employee_ID = ID;
+        INSERT PaymentHistory (employee_ID, prev_salary, current_salary, created_at)
+            VALUES (ID, existingPayment, newPayment, NOW());
+    END IF;
+END;
+```
 2. (송섬균) 임직원의 부서 이동 프로시저
 3. (권구현) 임직원 일괄 휴가 지급 프로시저
 
