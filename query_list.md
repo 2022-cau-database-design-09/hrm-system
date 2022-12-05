@@ -185,7 +185,41 @@ DELIMITER ;
 
 ### 조언욱
 1. 부서 별로 임직원에게 요구되는 교육에 대한 정보를 조회
+```
+ -- 부서 별로 임직원에게 요구되는 교육에 대한 정보를 조회
+SELECT d.name as department_name, Edu.edu_name, Edu.mandatory, Edu.due_date, EmInfo.employee_ID, EmInfo.employee_name
+    FROM Department d 
+    LEFT JOIN (
+        SELECT t.department as dept, t.name as edu_name, mandatory, t.due_date, employee_ID
+        FROM EducationType t 
+        NATURAL JOIN Education e1) Edu on d.ID = Edu.dept
+    natural JOIN (
+        SELECT e2.ID as employee_ID, h.name as employee_name
+        FROM Employee e2
+        NATURAL JOIN Human h) EmInfo 
+```
 2. 채용에 지원하는 지원자에 대한 정보를 조회
+```
+-- 채용에 지원하는 지원자에 대한 정보를 조회
+SELECT d.name as department_name, Recruit.recruit_type, Appli.applicant_name, Appli.pass,
+Academic.academic_type, Academic.school_name, Academic.major_name
+    FROM Department d
+    LEFT JOIN(
+        SELECT r.ID as recruit_ID, rt.type as recruit_type, r.department as dept
+        FROM Recruiting r
+        LEFT JOIN RecruitingType rt on r.type = rt.ID
+        ) Recruit on d.ID = Recruit.dept
+    LEFT JOIN (
+        SELECT a.recruiting_ID, a.pass as pass, h.name as applicant_name, h.academic_background as background
+        FROM Applicant a
+        LEFT JOIN Human h on a.human_ID = h.ID) Appli on Recruit.recruit_ID = Appli.recruiting_ID
+    LEFT JOIN (
+        SELECT ab.ID as academic_ID , ab.type as academic_type, s.name as school_name, m.name as major_name
+        FROM Academicbackground ab
+        LEFT JOIN School s on ab.school_ID = s.ID 
+        LEFT JOIN Major m on ab.major_ID = m.ID) Academic on Appli.background = Academic.academic_ID
+    WHERE  Recruit.recruit_type is not null
+```
 
 #### 목표
 1. 친목을 위한 기능
