@@ -451,6 +451,8 @@ CREATE TRIGGER `vacationhistory_AFTER_UPDATE` AFTER UPDATE ON `vacationavailable
     (old.vacationAvailable.employee_ID, old.vacationAvailable.vacation_type, now());
 END; //
 
+DELIMITER ;
+
 SET foreign_key_checks=0;
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (1,"우유윤","1989-05-27","010-2511-5276","cxggbw8576@cau.ac.kr",19);
 insert into Human (id, name, birth_date, phone_number, email, academic_background) values (2,"신영석","1985-07-04","010-2313-7427","nrvystm2860@cau.ac.kr",5);
@@ -1097,6 +1099,7 @@ BEGIN
 END//
 DELIMITER ;
 
+-- 프로시저 3 (권구현) 임직원 일괄 휴가 지급 프로시저
 DELIMITER //
 DROP PROCEDURE IF EXISTS GiveVacationForAllEmployees//
 CREATE PROCEDURE GiveVacationForAllEmployees (vacation_type INTEGER, remaining_time DATETIME)
@@ -1108,6 +1111,23 @@ BEGIN
     
     INSERT INTO vacationAvailable (employee_ID, vacation_type,remaining_time)
     SELECT ID, vacation_type, remaining_time FROM employee;
+END//
+DELIMITER ;
+
+-- 프로시저 4 (권구현) 하위 부서 임직원 정보 조회 (본인 부서와 반복되는 하위 부서의 하위 부서 포함)
+DELIMITER //
+DROP PROCEDURE IF EXISTS AllEmployeesInChildDepartments//
+CREATE PROCEDURE AllEmployeesInChildDepartments(ID int)
+BEGIN
+	WITH RECURSIVE child_departments (department_ID) AS
+    (
+		SELECT ID
+        UNION ALL	
+        SELECT h.child_department FROM DepartmentHierarchy AS h
+        JOIN child_departments AS c ON c.department_ID=h.parent_department
+    )
+    SELECT * FROM Employee AS e
+    WHERE e.ID IN (SELECT employee_ID AS ID FROM DepartmentMember NATURAL JOIN child_departments);
 END//
 DELIMITER ;
 
@@ -1193,24 +1213,15 @@ inner join Department D on D.ID=myS.dID
 inner join Office O on O.ID=D.office_ID
 group by O.floor
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- 트리거1 (권구현) Applicant가 pass 되었을때 임직원으로 배치
+DELIMITER //
+DROP TRIGGER IF EXISTS ApplicantToEmployee //
+CREATE TRIGGER ApplicantToEmployee AFTER UPDATE ON Applicant FOR EACH ROW
+BEGIN
+    IF new.pass=true AND old.pass=false AND new.human_ID NOT IN (SELECT human_ID FROM Employee ) THEN
+        INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (new.human_ID, 10, now(), NULL);
+        INSERT INTO Payment VALUES((SELECT ID FROM Employee WHERE Employee.human_ID=new.human_ID),25000000);
+        INSERT INTO DepartmentMember VALUES ((SELECT department FROM Recruiting WHERE ID=new.recruiting_ID),(SELECT ID FROM Employee WHERE Employee.human_ID=old.human_ID));
+    END IF;
+END//
+DELIMITER ;

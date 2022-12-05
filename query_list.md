@@ -96,6 +96,25 @@ END//
 DELIMITER ;
 ```
 
+4. (권구현) 하위 부서 임직원 정보 조회 (본인 부서와 반복되는 하위 부서의 하위 부서 포함)
+```
+DELIMITER //
+DROP PROCEDURE IF EXISTS AllEmployeesInChildDepartments//
+CREATE PROCEDURE AllEmployeesInChildDepartments(ID int)
+BEGIN
+	WITH RECURSIVE child_departments (department_ID) AS
+    (
+		SELECT ID
+        UNION ALL	
+        SELECT h.child_department FROM DepartmentHierarchy AS h
+        JOIN child_departments AS c ON c.department_ID=h.parent_department
+    )
+    SELECT * FROM Employee AS e
+    WHERE e.ID IN (SELECT employee_ID AS ID FROM DepartmentMember NATURAL JOIN child_departments);
+END//
+DELIMITER ;
+```
+
 ## Function
 1. (정석우) 임직원의 한 달 근무 시간 통계 리턴
 ```
@@ -161,21 +180,19 @@ DELIMITER ;
 
 ## Trigger
 1. (권구현) Applicant가 pass 되었을때 임직원으로 배치 or 급여 변동시 로그 테이블에 기록
-'''
+```
 DELIMITER //
 DROP TRIGGER IF EXISTS ApplicantToEmployee //
 CREATE TRIGGER ApplicantToEmployee AFTER UPDATE ON Applicant FOR EACH ROW
 BEGIN
-	IF new.pass=true AND old.pass=false AND new.human_ID NOT IN (SELECT human_ID FROM Employee )THEN
-		INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES 
-        (new.human_ID, 10, now(), NULL);
+    IF new.pass=true AND old.pass=false AND new.human_ID NOT IN (SELECT human_ID FROM Employee ) THEN
+        INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES (new.human_ID, 10, now(), NULL);
         INSERT INTO Payment VALUES((SELECT ID FROM Employee WHERE Employee.human_ID=new.human_ID),25000000);
-        INSERT INTO DepartmentMember VALUES ((SELECT department FROM Recruiting WHERE ID=new.recruiting_ID), (SELECT ID FROM Employee WHERE Employee.human_ID=old.human_ID));
-
-	END IF;
+        INSERT INTO DepartmentMember VALUES ((SELECT department FROM Recruiting WHERE ID=new.recruiting_ID),(SELECT ID FROM Employee WHERE Employee.human_ID=old.human_ID));
+    END IF;
 END//
 DELIMITER ;
-'''
+```
 
 2. (조언욱) 임직원의 진급 시 로그 테이블에 기록
 
