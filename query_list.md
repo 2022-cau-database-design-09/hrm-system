@@ -213,7 +213,45 @@ DELIMITER ;
 
 ### 송섬균
 1. 부서별로 차지하는 비율이 가장 높은 학교 조회 : 적응을 잘 못하는 임직원을 같은 학교가 많은 부서로 옮겨줄 수 있다
+```
+select distinct D.name 부서, S.name 학교, myS2.M 인원수
+from (
+	select distinct Q, P, max(C) as M
+	from (
+		select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
+		from employee E
+		inner join Human H on E.Human_ID=H.ID
+		inner join AcademicBackground AB on H.academic_background=AB.ID
+		inner join DepartmentMember DM on E.ID=DM.employee_ID
+		group by Q, P
+	) myS1
+	group by Q, P
+) myS2
+left join Department D on D.ID=myS2.Q
+left join School S on S.ID=myS2.P
+inner join (
+	select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
+	from employee E
+	inner join Human H on E.Human_ID=H.ID
+	inner join AcademicBackground AB on H.academic_background=AB.ID
+	inner join DepartmentMember DM on E.ID=DM.employee_ID
+	group by Q, P
+) myS3
+where myS2.M=myS3.C and myS2.Q=myS3.Q and myS2.P=myS3.P
+order by D.name
+```
 2. 사무실 층 별 사용하는 인원 수 조회 : 너무 한쪽에만 몰리면 소외되는 층이 발생할 수 있어 부대편성때 골고루 할 수 있게 도와준다
+```
+select O.floor 층, sum(myS.C) 총원
+from (
+	select DM.department_ID dID, count(DM.department_ID) C
+	from DepartmentMember DM
+	group by DM.department_ID
+) myS
+inner join Department D on D.ID=myS.dID
+inner join Office O on O.ID=D.office_ID
+group by O.floor
+```
 
 ### 권구현
 1. 특정 부서의 모든 하위부서의 임직원 조회
