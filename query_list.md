@@ -24,63 +24,60 @@ END;
 2. (송섬균) 임직원의 부서 이동 프로시저
 //해당 부서가 사용하는 사무실이 추가적으로 수용할 수 있는 인원 수
 ```
-DROP FUNCTION IF EXISTS getAcceptableEmployeeNumber;
+DELIMITER //
+DROP FUNCTION IF EXISTS getAcceptableEmployeeNumber//
 CREATE FUNCTION getAcceptableEmployeeNumber(departmentID int) RETURNS int
 BEGIN
-	declare ret int
-    declare gap int
-    ret=0
-    gap=0
-    
+	declare ret int;
+    declare gap int;
+    -- ret: 부서별 사람 수
     select count(D.ID) into ret
-	from Department D where D.ID=departmentID
-	inner join Office O on D.office_ID=O.ID
+	from Department D
 	inner join DepartmentMember DM on D.id=DM.department_ID
-	group by D.ID
+    where D.ID=departmentID
+	group by D.ID;
+    -- cap : 부서에서 사용하는 사무실의 capacity
+    select O.capacity into gap
+	from Department D
+	inner join Office O on D.office_ID=O.ID
+	where D.ID=departmentID;
     
-    if ret!=0 then
-		select O.capacity into gap
-        from Department D where D.ID=departmentID
-        inner join Office O where on D.office_ID=O.ID
-    end if
-    
-    return ret-gap
+    return gap-ret;
 END//
+DELIMITER ;
 ```
 //해당 부서의 상급부서
 ```
-DROP FUNCTION IF EXISTS getParentDepartment
+DELIMITER //
+DROP FUNCTION IF EXISTS getParentDepartment//
 CREATE FUNCTION getParentDepartment(departmentID int) RETURNS int
 BEGIN
-	declare ret int
+	declare ret int;
     
     select parent_department into ret
-	from DepartmentHierarchy where child_department=departmentID
+	from DepartmentHierarchy 
+    where child_department=departmentID;
     
-    return ret
+    return ret;
 END//
+DELIMITER ;
 ```
 //(부서를 옮기고 싶은 직원,옮길 부서)
 ```
 DELIMITER //
-DROP PROCEDURE IF EXISTS `MoveDepartment`;
-CREATE PROCEDURE `MoveDepartment` (employeeID INTEGER, departmentID int)
+DROP PROCEDURE IF EXISTS MoveDepartment//
+CREATE PROCEDURE MoveDepartment (employeeID INTEGER, departmentID int)
 BEGIN
-	declare now int
-    -- 옮길 부서가 자리가 없으면 안 옮긴다
 	if getAcceptableEmployeeNumber(departmentID)>0 then
-    -- 현재 소속된 부서 기록을 모두 지운다.
-        delete from DepartmentMember where employeeID=employee_ID
-        now=departmentID
-        -- 들어갈 부서와 그 부서의 상급 부서들까지 모두 소속되게 한다
-        while now is not null
-			begin
-			insert into DepartmentMember values(now,employeeID)
-			now=getParentDepartment(now)
-			end
-    end if
+        delete from DepartmentMember where employeeID=employee_ID;
+        
+        while (departmentID is not null) DO
+			insert into DepartmentMember values(departmentID,employeeID);
+			set departmentID=getParentDepartment(departmentID);
+		end while;
+    end if;
 END//
-DELIMITER;
+DELIMITER ;
 ```
 3. (권구현) 임직원 일괄 휴가 지급 프로시저
 ```
@@ -128,35 +125,35 @@ DELIMITER ;
 2. (송섬균) 해당 부서에서 해당 전공이 차지하는 비율
 ```
 -- 해당 부서에 해당 전공을 가진 사람의 수
-DELIMITER $$
-DROP FUNCTION IF EXISTS getDepartmentNum
+DELIMITER //
+DROP FUNCTION IF EXISTS getDepartmentNum //
 CREATE FUNCTION getDepartmentNum(departmentID int, MajorID int) RETURNS int
 BEGIN
-	declare ret int
+	declare ret int;
     
     select count(DM.department_ID) into ret
 	from employee E
 	inner join Human H on E.Human_ID=H.ID
 	inner join AcademicBackground AB on H.academic_background=AB.ID and AB.Major_ID=MajorID
 	inner join DepartmentMember DM on E.ID=DM.employee_ID and DM.department_ID=departmentID
-    group by DM.department_ID
+    group by DM.department_ID;
     
-    return ret
+    return ret;
 END//
 DELIMITER ;
 ```
 ```
 -- 해당 부서에서 해당 전공이 차지하는 비율
-DELIMITER $$
-DROP FUNCTION IF EXISTS getPercentMajor
+DELIMITER //
+DROP FUNCTION IF EXISTS getPercentMajor //
 CREATE FUNCTION getPercentMajor(departmentID int, MajorID int) RETURNS float
 BEGIN
-	declare ret float
+	declare ret float;
     select getDepartmentNum(departmentID,MajorID)/sum(getDepartmentNum(departmentID,M.ID)) into ret
     from Major M where ID is not null
-    group by M.ID
+    group by M.ID;
     
-    return ret
+    return ret;
 END//
 DELIMITER ;
 ```
