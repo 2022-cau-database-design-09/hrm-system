@@ -161,53 +161,7 @@ END//
 DELIMITER ;
 ```
 3. (조언욱) 임직원의 남은 총 휴가 시간 리턴
-```
---휴가 타입에 따라 휴가 일수를 반환
-DELIMITER //
-DROP FUNCTION TRANS_TYPE;
-CREATE FUNCTION TRANS_TYPE(vacationType int) 
-RETURNS int DETERMINISTIC
-RETURN
-		CASE vacationType 
-			WHEN 1 
-				THEN 1 
-			WHEN 2
-				THEN 1
-			WHEN 3
-				THEN 1
-			WHEN 4
-				THEN 3
-			WHEN 5
-				THEN 2
-			WHEN 6
-				THEN 1
-			WHEN 7
-				THEN 1
-			WHEN 8
-				THEN 1
-		END//
-DELIMITER ;
-```
-```
--- 임직원의 남은 총 휴가를 반환 
-DELIMITER //
-DROP FUNCTION IF EXISTS TOTAL_VACATION;
-CREATE FUNCTION TOTAL_VACATION (employeeID int)
-RETURNS INT
-BEGIN 
-	DECLARE returnVal int
-    
-    SELECT SUM(TRANS_TYPE(v.vacation_type)) INTO returnVal
-    FROM VacationAvailable v
-    LEFT JOIN VacationType vt on v.vacation_type = vt.ID
-    WHERE v.employee_ID = employeeID
-    GROUP BY v.employee_ID
-    
-    RETURN returnVal
-END//
-DELIMITER ;
--- 임직원의 남은 총 휴가를 반환 
-```
+
 ## Trigger
 1. (권구현) Applicant가 pass 되었을때 임직원으로 배치 or 급여 변동시 로그 테이블에 기록
 '''
@@ -227,22 +181,9 @@ DELIMITER ;
 '''
 
 2. (조언욱) 임직원의 진급 시 로그 테이블에 기록
-```
-DELIMITER //
-CREATE TRIGGER `promotionhistory_AFTER_UPDATE` AFTER UPDATE ON `employee` FOR EACH ROW 
-BEGIN
-	INSERT INTO PromotionHistory (prev_position, current_position, created_at) VALUES 
-    (OLD.Employee.current_position, new.Employee.current_position, now());
-END; //
-```
+
 3. (조언욱) 휴가 변동 시 로그 테이블에 기록
-```
-DELIMITER //
-CREATE TRIGGER `vacationhistory_AFTER_UPDATE` AFTER UPDATE ON `vacationavailable` FOR EACH ROW BEGIN
-	INSERT INTO VacationHistory (employee_ID, vacation_type, created_at) VALUES 
-    (old.vacationAvailable.employee_ID, old.vacationAvailable.vacation_type, now());
-END; //
-```
+
 ## 조회 쿼리 
 ### 정석우
 1. 최종 학력 별 임직원의 현재 연봉 (Payment) 통계 조회
@@ -332,3 +273,67 @@ Academic.academic_type, Academic.school_name, Academic.major_name
 ```
 #### 목표
 1. 친목을 위한 기능
+
+
+
+```
+--휴가 타입에 따라 휴가 일수를 반환
+DELIMITER //
+DROP FUNCTION TRANS_TYPE;
+CREATE FUNCTION TRANS_TYPE(vacationType int) 
+RETURNS int DETERMINISTIC
+RETURN
+		CASE vacationType 
+			WHEN 1 
+				THEN 1 
+			WHEN 2
+				THEN 1
+			WHEN 3
+				THEN 1
+			WHEN 4
+				THEN 3
+			WHEN 5
+				THEN 2
+			WHEN 6
+				THEN 1
+			WHEN 7
+				THEN 1
+			WHEN 8
+				THEN 1
+		END//
+DELIMITER ;
+```
+```
+-- 임직원의 남은 총 휴가를 반환 
+DELIMITER //
+DROP FUNCTION IF EXISTS TOTAL_VACATION;
+CREATE FUNCTION TOTAL_VACATION (employeeID int)
+RETURNS INT
+BEGIN 
+	DECLARE returnVal int
+    
+    SELECT SUM(TRANS_TYPE(v.vacation_type)) INTO returnVal
+    FROM VacationAvailable v
+    LEFT JOIN VacationType vt on v.vacation_type = vt.ID
+    WHERE v.employee_ID = employeeID
+    GROUP BY v.employee_ID
+    
+    RETURN returnVal
+END//
+DELIMITER ;
+```
+```
+DELIMITER //
+CREATE TRIGGER `promotionhistory_AFTER_UPDATE` AFTER UPDATE ON `employee` FOR EACH ROW 
+BEGIN
+	INSERT INTO PromotionHistory (prev_position, current_position, created_at) VALUES 
+    (OLD.Employee.current_position, new.Employee.current_position, now());
+END; //
+```
+```
+DELIMITER //
+CREATE TRIGGER `vacationhistory_AFTER_UPDATE` AFTER UPDATE ON `vacationavailable` FOR EACH ROW BEGIN
+	INSERT INTO VacationHistory (employee_ID, vacation_type, created_at) VALUES 
+    (old.vacationAvailable.employee_ID, old.vacationAvailable.vacation_type, now());
+END; //
+```
