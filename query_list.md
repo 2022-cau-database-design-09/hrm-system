@@ -85,6 +85,21 @@ END//
 DELIMITER;
 ```
 3. (권구현) 임직원 일괄 휴가 지급 프로시저
+```
+DELIMITER //
+DROP PROCEDURE IF EXISTS GiveVacationForAllEmployees//
+CREATE PROCEDURE GiveVacationForAllEmployees (vacation_type INTEGER, remaining_time DATETIME)
+BEGIN
+	DECLARE EXIT HANDLER FOR 1452 -- foreign key error / does not exist vacation_type
+		BEGIN
+			SELECT CONCAT('No Vacation_type found with id ', vacation_type);
+		END;
+    
+    INSERT INTO vacationAvailable (employee_ID, vacation_type,remaining_time)
+    SELECT ID, vacation_type, remaining_time FROM employee;
+END//
+DELIMITER ;
+```
 
 ## Function
 1. (정석우) 임직원의 한 달 근무 시간 통계 리턴
@@ -115,43 +130,7 @@ BEGIN
 END //
 DELIMITER ;
 ```
-2. (송섬균) 해당 부서에서 해당 전공이 차지하는 비율
-
-```
--- 해당 부서에 해당 전공을 가진 사람의 수
-DELIMITER $$
-DROP FUNCTION IF EXISTS getDepartmentNum
-CREATE FUNCTION getDepartmentNum(departmentID int, MajorID int) RETURNS int
-BEGIN
-	declare ret int
-    
-    select count(DM.department_ID) into ret
-	from employee E
-	inner join Human H on E.Human_ID=H.ID
-	inner join AcademicBackground AB on H.academic_background=AB.ID and AB.Major_ID=MajorID
-	inner join DepartmentMember DM on E.ID=DM.employee_ID and DM.department_ID=departmentID
-    group by DM.department_ID
-    
-    return ret
-END//
-DELIMITER ;
-```
-```
--- 해당 부서에서 해당 전공이 차지하는 비율
-DELIMITER $$
-DROP FUNCTION IF EXISTS getPercentMajor
-CREATE FUNCTION getPercentMajor(departmentID int, MajorID int) RETURNS float
-BEGIN
-	declare ret float
-    select getDepartmentNum(departmentID,MajorID)/sum(getDepartmentNum(departmentID,M.ID)) into ret
-    from Major M where ID is not null
-    group by M.ID
-    
-    return ret
-END//
-DELIMITER ;
-```
-
+2. (송섬균) 임직 사람들 목록 리턴 : 친해지고 싶은 사람들의 주변인들부터 알아가면 친해지기 쉽다
 3. (조언욱) 임직원의 남은 총 휴가 시간 리턴
 ```
 --휴가 타입에 따라 휴가 일수를 반환
@@ -202,6 +181,21 @@ DELIMITER ;
 ```
 ## Trigger
 1. (권구현) Applicant가 pass 되었을때 임직원으로 배치 or 급여 변동시 로그 테이블에 기록
+'''
+DELIMITER //
+DROP TRIGGER IF EXISTS ApplicantToEmployee //
+CREATE TRIGGER ApplicantToEmployee AFTER UPDATE ON Applicant FOR EACH ROW
+BEGIN
+	IF new.pass=true AND old.pass=false AND new.human_ID NOT IN (SELECT human_ID FROM Employee )THEN
+		INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES 
+        (new.human_ID, 10, now(), NULL);
+        INSERT INTO Payment VALUES((SELECT ID FROM Employee WHERE Employee.human_ID=new.human_ID),25000000);
+        INSERT INTO DepartmentMember VALUES ((SELECT department FROM Recruiting WHERE ID=new.recruiting_ID), (SELECT ID FROM Employee WHERE Employee.human_ID=old.human_ID));
+        
+	END IF;
+END//
+DELIMITER ;
+'''
 2. (조언욱) 임직원의 진급 시 로그 테이블에 기록
 3. (조언욱) 휴가 변동 시 로그 테이블에 기록
 
@@ -213,45 +207,7 @@ DELIMITER ;
 
 ### 송섬균
 1. 부서별로 차지하는 비율이 가장 높은 학교 조회 : 적응을 잘 못하는 임직원을 같은 학교가 많은 부서로 옮겨줄 수 있다
-```
-select distinct D.name 부서, S.name 학교, myS2.M 인원수
-from (
-	select distinct Q, P, max(C) as M
-	from (
-		select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
-		from employee E
-		inner join Human H on E.Human_ID=H.ID
-		inner join AcademicBackground AB on H.academic_background=AB.ID
-		inner join DepartmentMember DM on E.ID=DM.employee_ID
-		group by Q, P
-	) myS1
-	group by Q, P
-) myS2
-left join Department D on D.ID=myS2.Q
-left join School S on S.ID=myS2.P
-inner join (
-	select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
-	from employee E
-	inner join Human H on E.Human_ID=H.ID
-	inner join AcademicBackground AB on H.academic_background=AB.ID
-	inner join DepartmentMember DM on E.ID=DM.employee_ID
-	group by Q, P
-) myS3
-where myS2.M=myS3.C and myS2.Q=myS3.Q and myS2.P=myS3.P
-order by D.name
-```
 2. 사무실 층 별 사용하는 인원 수 조회 : 너무 한쪽에만 몰리면 소외되는 층이 발생할 수 있어 부대편성때 골고루 할 수 있게 도와준다
-```
-select O.floor 층, sum(myS.C) 총원
-from (
-	select DM.department_ID dID, count(DM.department_ID) C
-	from DepartmentMember DM
-	group by DM.department_ID
-) myS
-inner join Department D on D.ID=myS.dID
-inner join Office O on O.ID=D.office_ID
-group by O.floor
-```
 
 ### 권구현
 1. 특정 부서의 모든 하위부서의 임직원 조회
