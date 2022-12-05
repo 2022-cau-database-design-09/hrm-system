@@ -115,7 +115,43 @@ BEGIN
 END //
 DELIMITER ;
 ```
-2. (송섬균) 임직 사람들 목록 리턴 : 친해지고 싶은 사람들의 주변인들부터 알아가면 친해지기 쉽다
+2. (송섬균) 해당 부서에서 해당 전공이 차지하는 비율
+
+```
+-- 해당 부서에 해당 전공을 가진 사람의 수
+DELIMITER $$
+DROP FUNCTION IF EXISTS getDepartmentNum
+CREATE FUNCTION getDepartmentNum(departmentID int, MajorID int) RETURNS int
+BEGIN
+	declare ret int
+    
+    select count(DM.department_ID) into ret
+	from employee E
+	inner join Human H on E.Human_ID=H.ID
+	inner join AcademicBackground AB on H.academic_background=AB.ID and AB.Major_ID=MajorID
+	inner join DepartmentMember DM on E.ID=DM.employee_ID and DM.department_ID=departmentID
+    group by DM.department_ID
+    
+    return ret
+END//
+DELIMITER ;
+```
+```
+-- 해당 부서에서 해당 전공이 차지하는 비율
+DELIMITER $$
+DROP FUNCTION IF EXISTS getPercentMajor
+CREATE FUNCTION getPercentMajor(departmentID int, MajorID int) RETURNS float
+BEGIN
+	declare ret float
+    select getDepartmentNum(departmentID,MajorID)/sum(getDepartmentNum(departmentID,M.ID)) into ret
+    from Major M where ID is not null
+    group by M.ID
+    
+    return ret
+END//
+DELIMITER ;
+```
+
 3. (조언욱) 임직원의 남은 총 휴가 시간 리턴
 ```
 --휴가 타입에 따라 휴가 일수를 반환
