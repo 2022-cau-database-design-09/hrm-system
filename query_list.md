@@ -24,6 +24,66 @@ BEGIN
 END;
 ```
 2. (송섬균) 임직원의 부서 이동 프로시저
+//해당 부서가 사용하는 사무실이 추가적으로 수용할 수 있는 인원 수
+```
+DROP FUNCTION IF EXISTS getAcceptableEmployeeNumber;
+CREATE FUNCTION getAcceptableEmployeeNumber(departmentID int) RETURNS int
+BEGIN
+	declare ret int
+    declare gap int
+    ret=0
+    gap=0
+    
+    select count(D.ID) into ret
+	from Department D where D.ID=departmentID
+	inner join Office O on D.office_ID=O.ID
+	inner join DepartmentMember DM on D.id=DM.department_ID
+	group by D.ID
+    
+    if ret!=0 then
+		select O.capacity into gap
+        from Department D where D.ID=departmentID
+        inner join Office O where on D.office_ID=O.ID
+    end if
+    
+    return ret-gap
+END//
+```
+//해당 부서의 상급부서
+```
+DROP FUNCTION IF EXISTS getParentDepartment
+CREATE FUNCTION getParentDepartment(departmentID int) RETURNS int
+BEGIN
+	declare ret int
+    
+    select parent_department into ret
+	from DepartmentHierarchy where child_department=departmentID
+    
+    return ret
+END//
+```
+//(부서를 옮기고 싶은 직원,옮길 부서)
+```
+DELIMITER //
+DROP PROCEDURE IF EXISTS `MoveDepartment`;
+CREATE PROCEDURE `MoveDepartment` (employeeID INTEGER, departmentID int)
+BEGIN
+	declare now int
+    -- 옮길 부서가 자리가 없으면 안 옮긴다
+	if getAcceptableEmployeeNumber(departmentID)>0 then
+    -- 현재 소속된 부서 기록을 모두 지운다.
+        delete from DepartmentMember where employeeID=employee_ID
+        now=departmentID
+        -- 들어갈 부서와 그 부서의 상급 부서들까지 모두 소속되게 한다
+        while now is not null
+			begin
+			insert into DepartmentMember values(now,employeeID)
+			now=getParentDepartment(now)
+			end
+    end if
+END//
+DELIMITER;
+```
 3. (권구현) 임직원 일괄 휴가 지급 프로시저
 
 ## Function
