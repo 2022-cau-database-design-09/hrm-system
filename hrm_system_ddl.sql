@@ -1045,3 +1045,172 @@ INSERT INTO CommuteTime (employee_ID, start_time, end_time) VALUES (9, '2022-11-
 INSERT INTO CommuteTime (employee_ID, start_time, end_time) VALUES (7, '2022-11-07 08:57:00', '2022-11-07 18:16:00');
 INSERT INTO CommuteTime (employee_ID, start_time, end_time) VALUES (10, '2022-11-08 08:37:00', '2022-11-08 17:51:00');
 INSERT INTO CommuteTime (employee_ID, start_time, end_time) VALUES (6, '2022-11-08 08:19:00', '2022-11-08 18:08:00');
+
+DELIMITER //
+DROP FUNCTION IF EXISTS getAcceptableEmployeeNumber//
+CREATE FUNCTION getAcceptableEmployeeNumber(departmentID int) RETURNS int
+BEGIN
+	declare ret int;
+    declare gap int;
+    -- ret: 부서별 사람 수
+    select count(D.ID) into ret
+	from Department D
+	inner join DepartmentMember DM on D.id=DM.department_ID
+    where D.ID=departmentID
+	group by D.ID;
+    -- cap : 부서에서 사용하는 사무실의 capacity
+    select O.capacity into gap
+	from Department D
+	inner join Office O on D.office_ID=O.ID
+	where D.ID=departmentID;
+    
+    return gap-ret;
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP FUNCTION IF EXISTS getParentDepartment//
+CREATE FUNCTION getParentDepartment(departmentID int) RETURNS int
+BEGIN
+	declare ret int;
+    
+    select parent_department into ret
+	from DepartmentHierarchy 
+    where child_department=departmentID;
+    
+    return ret;
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS MoveDepartment//
+CREATE PROCEDURE MoveDepartment (employeeID INTEGER, departmentID int)
+BEGIN
+	if getAcceptableEmployeeNumber(departmentID)>0 then
+        delete from DepartmentMember where employeeID=employee_ID;
+        
+        while (departmentID is not null) DO
+			insert into DepartmentMember values(departmentID,employeeID);
+			set departmentID=getParentDepartment(departmentID);
+		end while;
+    end if;
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS GiveVacationForAllEmployees//
+CREATE PROCEDURE GiveVacationForAllEmployees (vacation_type INTEGER, remaining_time DATETIME)
+BEGIN
+	DECLARE EXIT HANDLER FOR 1452 -- foreign key error / does not exist vacation_type
+		BEGIN
+			SELECT CONCAT('No Vacation_type found with id ', vacation_type);
+		END;
+    
+    INSERT INTO vacationAvailable (employee_ID, vacation_type,remaining_time)
+    SELECT ID, vacation_type, remaining_time FROM employee;
+END//
+DELIMITER ;
+
+-- 해당 부서에 해당 전공을 가진 사람의 수
+DELIMITER //
+DROP FUNCTION IF EXISTS getDepartmentNum //
+CREATE FUNCTION getDepartmentNum(departmentID int, MajorID int) RETURNS int
+BEGIN
+	declare ret int;
+    
+    select count(DM.department_ID) into ret
+	from employee E
+	inner join Human H on E.Human_ID=H.ID
+	inner join AcademicBackground AB on H.academic_background=AB.ID and AB.Major_ID=MajorID
+	inner join DepartmentMember DM on E.ID=DM.employee_ID and DM.department_ID=departmentID
+    group by DM.department_ID;
+    
+    return ret;
+END//
+DELIMITER ;
+
+-- 해당 부서에서 해당 전공이 차지하는 비율
+DELIMITER //
+DROP FUNCTION IF EXISTS getPercentMajor //
+CREATE FUNCTION getPercentMajor(departmentID int, MajorID int) RETURNS float
+BEGIN
+	declare ret float;
+    select getDepartmentNum(departmentID,MajorID)/sum(getDepartmentNum(departmentID,M.ID)) into ret
+    from Major M where ID is not null
+    group by M.ID;
+    
+    return ret;
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP TRIGGER IF EXISTS ApplicantToEmployee //
+CREATE TRIGGER ApplicantToEmployee AFTER UPDATE ON Applicant FOR EACH ROW
+BEGIN
+	IF new.pass=true AND old.pass=false AND new.human_ID NOT IN (SELECT human_ID FROM Employee )THEN
+		INSERT INTO Employee (human_ID, current_position, entrance_date, quit_date) VALUES 
+        (new.human_ID, 10, now(), NULL);
+        INSERT INTO Payment VALUES((SELECT ID FROM Employee WHERE Employee.human_ID=new.human_ID),25000000);
+        INSERT INTO DepartmentMember VALUES ((SELECT department FROM Recruiting WHERE ID=new.recruiting_ID), (SELECT ID FROM Employee WHERE Employee.human_ID=old.human_ID));
+
+	END IF;
+END//
+DELIMITER ;
+
+select distinct D.name 부서, S.name 학교, myS2.M 인원수
+from (
+	select distinct Q, P, max(C) as M
+	from (
+		select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
+		from employee E
+		inner join Human H on E.Human_ID=H.ID
+		inner join AcademicBackground AB on H.academic_background=AB.ID
+		inner join DepartmentMember DM on E.ID=DM.employee_ID
+		group by Q, P
+	) myS1
+	group by Q, P
+) myS2
+left join Department D on D.ID=myS2.Q
+left join School S on S.ID=myS2.P
+inner join (
+	select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
+	from employee E
+	inner join Human H on E.Human_ID=H.ID
+	inner join AcademicBackground AB on H.academic_background=AB.ID
+	inner join DepartmentMember DM on E.ID=DM.employee_ID
+	group by Q, P
+) myS3
+where myS2.M=myS3.C and myS2.Q=myS3.Q and myS2.P=myS3.P
+order by D.name
+
+select O.floor 층, sum(myS.C) 총원
+from (
+	select DM.department_ID dID, count(DM.department_ID) C
+	from DepartmentMember DM
+	group by DM.department_ID
+) myS
+inner join Department D on D.ID=myS.dID
+inner join Office O on O.ID=D.office_ID
+group by O.floor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
