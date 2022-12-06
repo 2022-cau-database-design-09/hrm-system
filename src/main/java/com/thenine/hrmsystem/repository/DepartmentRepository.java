@@ -22,4 +22,8 @@ public class DepartmentRepository {
                                 .officeID(rs.getInt("office_ID"))
                                 .build(), name));
     }
+
+    public Integer getHumanInDepartmentCount() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM DepartmentMember", Integer.class);
+    }
 }
