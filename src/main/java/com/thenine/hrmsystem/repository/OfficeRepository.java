@@ -28,7 +28,8 @@ public class OfficeRepository {
                     ) myS
                     inner join Department D on D.ID=myS.dID
                     inner join Office O on O.ID=D.office_ID
-                    group by O.floor""",
+                    group by O.floor
+                    order by O.floor""",
                 (rs, rowNum) -> OfficePeopleCountDto.builder()
                     .floor(rs.getInt("floor"))
                     .peopleCount(rs.getInt("totalPeople"))
