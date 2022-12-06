@@ -29,10 +29,10 @@ public class TestController {
     private final DepartmentService departmentService;
 
     @GetMapping("/human")
-    public ResponseEntity<Human> getHumanByName (@RequestParam String name) {
-        Optional<Human> foundHuman = humanService.getHumanByName(name);
+    public ResponseEntity<List<Human>> getHumanByName (@RequestParam String name) {
+        List<Human> foundHuman = humanService.getHumanByName(name);
         if (foundHuman.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return ResponseEntity.ok(foundHuman.get());
+        return ResponseEntity.ok(foundHuman);
     }
 
     @GetMapping("/office/usage")
