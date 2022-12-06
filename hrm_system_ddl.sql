@@ -1226,4 +1226,4 @@ END//
 DELIMITER ;
 
 -- 해결됐으면 다시 권한 ㄴㄴ
-log_bin_trust_function_creators = 0;
+set global log_bin_trust_function_creators = 0;
