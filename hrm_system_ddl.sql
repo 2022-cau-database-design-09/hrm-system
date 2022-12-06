@@ -1048,7 +1048,9 @@ INSERT INTO CommuteTime (employee_ID, start_time, end_time) VALUES (7, '2022-11-
 INSERT INTO CommuteTime (employee_ID, start_time, end_time) VALUES (10, '2022-11-08 08:37:00', '2022-11-08 17:51:00');
 INSERT INTO CommuteTime (employee_ID, start_time, end_time) VALUES (6, '2022-11-08 08:19:00', '2022-11-08 18:08:00');
 
-/*
+-- 함수 선언 오류 해결 구문
+SET GLOBAL log_bin_trust_function_creators = 1;
+
 DELIMITER //
 DROP FUNCTION IF EXISTS getAcceptableEmployeeNumber//
 CREATE FUNCTION getAcceptableEmployeeNumber(departmentID int) RETURNS int
@@ -1083,7 +1085,7 @@ BEGIN
     
     return ret;
 END//
-DELIMITER ;*/
+DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS MoveDepartment//
@@ -1129,7 +1131,6 @@ END//
 DELIMITER ;
 
 -- 해당 부서에 해당 전공을 가진 사람의 수
-/*
 DELIMITER //
 DROP FUNCTION IF EXISTS getDepartmentNum //
 CREATE FUNCTION getDepartmentNum(departmentID int, MajorID int) RETURNS int
@@ -1160,7 +1161,7 @@ BEGIN
     return ret;
 END//
 DELIMITER ;
-*/
+
 DELIMITER //
 DROP TRIGGER IF EXISTS ApplicantToEmployee //
 CREATE TRIGGER ApplicantToEmployee AFTER UPDATE ON Applicant FOR EACH ROW
@@ -1223,3 +1224,6 @@ BEGIN
     END IF;
 END//
 DELIMITER ;
+
+-- 해결됐으면 다시 권한 ㄴㄴ
+log_bin_trust_function_creators = 0;
