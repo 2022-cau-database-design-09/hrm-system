@@ -20,8 +20,10 @@ public class HumanTest {
 
     @Test
     void 이름으로_조회() {
-        final String testName = "우유윤";
-        Optional<Human> testHuman = humanRepository.getHumanByName(testName);
-        testHuman.ifPresent(human -> assertEquals(human.getName(), testName));
+        final String testName = "박형균";
+        List<Human> testHuman = humanRepository.getHumanByName(testName);
+        for (Human human : testHuman) {
+            assertEquals(human.getName(), testName);
+        }
     }
 }
