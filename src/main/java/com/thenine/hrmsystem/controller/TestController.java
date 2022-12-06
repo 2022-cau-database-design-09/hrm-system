@@ -1,28 +1,33 @@
 package com.thenine.hrmsystem.controller;
 
+import com.thenine.hrmsystem.domain.Employee;
 import com.thenine.hrmsystem.domain.Human;
 import com.thenine.hrmsystem.dto.OfficePeopleCountDto;
+import com.thenine.hrmsystem.service.DepartmentService;
 import com.thenine.hrmsystem.service.HumanService;
 import com.thenine.hrmsystem.service.OfficeService;
 
-import lombok.AllArgsConstructor;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TestController {
 
-    private HumanService humanService;
+    private final HumanService humanService;
 
-    private OfficeService officeService;
+    private final OfficeService officeService;
+
+    private final DepartmentService departmentService;
+
     @GetMapping("/human")
     public ResponseEntity<Human> getHumanByName (@RequestParam String name) {
         Optional<Human> foundHuman = humanService.getHumanByName(name);
@@ -35,5 +40,12 @@ public class TestController {
         List<OfficePeopleCountDto> officePeopleCountDtoList = officeService.getOfficePeopleCount();
         if (officePeopleCountDtoList.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(officePeopleCountDtoList);
+    }
+
+    @GetMapping("/employee/department/sub")
+    public ResponseEntity<List<Employee>> getSubordinateEmployeeList(@RequestParam int employeeID) {
+        List<Employee> subEmployeeList = departmentService.getInferiorEmployeeList(employeeID);
+        if (subEmployeeList.isEmpty()) return ResponseEntity.ok(Collections.emptyList());
+        return ResponseEntity.ok(subEmployeeList);
     }
 }

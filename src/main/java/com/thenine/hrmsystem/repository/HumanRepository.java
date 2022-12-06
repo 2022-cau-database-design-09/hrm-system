@@ -30,7 +30,6 @@ public class HumanRepository {
                         .academicBackGround(rs.getInt("academic_background"))
                         .build(), name);
         } catch (EmptyResultDataAccessException e) {
-            e.printStackTrace();
             return Optional.empty();
         }
         assert res != null;
