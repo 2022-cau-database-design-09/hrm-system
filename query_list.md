@@ -70,12 +70,8 @@ CREATE PROCEDURE MoveDepartment (employeeID INTEGER, departmentID int)
 BEGIN
 	if getAcceptableEmployeeNumber(departmentID)>0 then
         delete from DepartmentMember where employeeID=employee_ID;
-        
-        while (departmentID is not null) DO
-			insert into DepartmentMember values(departmentID,employeeID);
-			set departmentID=getParentDepartment(departmentID);
-		end while;
-    end if;
+        insert into DepartmentMember values(departmentID,employeeID);
+    	end if;
 END//
 DELIMITER ;
 ```
