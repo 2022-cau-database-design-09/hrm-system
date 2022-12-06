@@ -1,4 +1,4 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
 -- Link to schema: https://app.quickdatabasediagrams.com/#/d/WIumc0
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
@@ -1175,42 +1175,6 @@ BEGIN
 	END IF;
 END//
 DELIMITER ;
-
-select distinct D.name 부서, S.name 학교, myS2.M 인원수
-from (
-	select distinct Q, P, max(C) as M
-	from (
-		select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
-		from employee E
-		inner join Human H on E.Human_ID=H.ID
-		inner join AcademicBackground AB on H.academic_background=AB.ID
-		inner join DepartmentMember DM on E.ID=DM.employee_ID
-		group by Q, P
-	) myS1
-	group by Q, P
-) myS2
-left join Department D on D.ID=myS2.Q
-left join School S on S.ID=myS2.P
-inner join (
-	select DM.department_ID as Q, AB.school_ID as P, count(AB.school_ID) as C
-	from employee E
-	inner join Human H on E.Human_ID=H.ID
-	inner join AcademicBackground AB on H.academic_background=AB.ID
-	inner join DepartmentMember DM on E.ID=DM.employee_ID
-	group by Q, P
-) myS3
-where myS2.M=myS3.C and myS2.Q=myS3.Q and myS2.P=myS3.P
-order by D.name
-
-select O.floor 층, sum(myS.C) 총원
-from (
-	select DM.department_ID dID, count(DM.department_ID) C
-	from DepartmentMember DM
-	group by DM.department_ID
-) myS
-inner join Department D on D.ID=myS.dID
-inner join Office O on O.ID=D.office_ID
-group by O.floor
 
 -- 트리거1 (권구현) Applicant가 pass 되었을때 임직원으로 배치
 DELIMITER //
