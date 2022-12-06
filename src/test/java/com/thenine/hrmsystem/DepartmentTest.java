@@ -23,4 +23,9 @@ public class DepartmentTest {
         Optional<Department> testDepartment = departmentRepository.getDepartmentByName(testDepartmentName);
         testDepartment.ifPresent(department -> assertEquals(testDepartment.get().getName(), testDepartmentName));
     }
+
+    @Test
+    void 유소속_사람_명수_카운트() {
+        assertEquals(departmentRepository.getHumanInDepartmentCount(), 14);
+    }
 }
