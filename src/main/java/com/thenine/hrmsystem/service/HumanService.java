@@ -1,9 +1,10 @@
 package com.thenine.hrmsystem.service;
 
+import com.thenine.hrmsystem.domain.Human;
 import com.thenine.hrmsystem.repository.HumanRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HumanService {
@@ -14,7 +15,7 @@ public class HumanService {
         this.humanRepository = humanRepository;
     }
 
-    public List<String> getHumanList() {
-        return humanRepository.getHumanNameList();
+    public Optional<Human> getHumanByName(String name) {
+        return humanRepository.getHumanByName(name);
     }
 }
