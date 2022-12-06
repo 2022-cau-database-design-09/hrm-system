@@ -3,6 +3,9 @@ package com.thenine.hrmsystem.controller;
 import com.thenine.hrmsystem.domain.Human;
 import com.thenine.hrmsystem.service.HumanService;
 import lombok.AllArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +19,9 @@ public class TestController {
     private HumanService humanService;
 
     @GetMapping("/human")
-    public Human getHumanByName (@RequestParam String name) {
+    public ResponseEntity<Human> getHumanByName (@RequestParam String name) {
         Optional<Human> foundHuman = humanService.getHumanByName(name);
-        return (foundHuman.orElse(Human.builder().build()));
+        if (foundHuman.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return ResponseEntity.ok(foundHuman.get());
     }
 }
