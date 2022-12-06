@@ -289,7 +289,7 @@ Academic.academic_type, Academic.school_name, Academic.major_name
 ```
 --휴가 타입에 따라 휴가 일수를 반환
 DELIMITER //
-DROP FUNCTION TRANS_TYPE;
+DROP FUNCTION IF EXISTS TRANS_TYPE;
 CREATE FUNCTION TRANS_TYPE(vacationType int) 
 RETURNS int DETERMINISTIC
 RETURN
@@ -340,9 +340,10 @@ BEGIN
     (OLD.Employee.current_position, new.Employee.current_position, now());
 END; //
 ```
+\
 ```
 DELIMITER //
-CREATE TRIGGER `vacationhistory_AFTER_UPDATE` AFTER UPDATE ON `vacationavailable` FOR EACH ROW BEGIN
+CREATE TRIGGER `vacationhistory_AFTER_DELETE` AFTER DELETE ON `vacationavailable` FOR EACH ROW BEGIN
 	INSERT INTO VacationHistory (employee_ID, vacation_type, created_at) VALUES 
     (old.vacationAvailable.employee_ID, old.vacationAvailable.vacation_type, now());
 END; //
