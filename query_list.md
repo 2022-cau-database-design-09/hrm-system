@@ -96,11 +96,11 @@ DELIMITER ;
 ```
 DELIMITER //
 DROP PROCEDURE IF EXISTS AllEmployeesInChildDepartments//
-CREATE PROCEDURE AllEmployeesInChildDepartments(ID int)
+CREATE PROCEDURE AllEmployeesInChildDepartments(root_department_ID int)
 BEGIN
 	WITH RECURSIVE child_departments (department_ID) AS
     (
-		SELECT department_ID FROM DepartmentMember WHERE employee_ID=ID
+		SELECT root_department_ID
         UNION ALL	
         SELECT h.child_department FROM DepartmentHierarchy AS h
         JOIN child_departments AS c ON c.department_ID=h.parent_department

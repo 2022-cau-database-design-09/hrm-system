@@ -43,8 +43,8 @@ public class TestController {
     }
 
     @GetMapping("/employee/department/sub")
-    public ResponseEntity<List<Employee>> getSubordinateEmployeeList(@RequestParam int employeeID) {
-        List<Employee> subEmployeeList = departmentService.getInferiorEmployeeList(employeeID);
+    public ResponseEntity<List<Employee>> getSubordinateEmployeeList(@RequestParam int rootDepartmentID) {
+        List<Employee> subEmployeeList = departmentService.getInferiorEmployeeList(rootDepartmentID);
         if (subEmployeeList.isEmpty()) return ResponseEntity.ok(Collections.emptyList());
         return ResponseEntity.ok(subEmployeeList);
     }

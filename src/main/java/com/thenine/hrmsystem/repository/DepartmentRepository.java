@@ -36,11 +36,11 @@ public class DepartmentRepository {
         return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM DepartmentMember", Integer.class);
     }
 
-    public List<Employee> getInferiorEmployeeList (int employeeID) {
+    public List<Employee> getInferiorEmployeeList (int rootDepartmentID) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("AllEmployeesInChildDepartments")
                 .declareParameters(
-                        new SqlParameter("in_ID", Types.INTEGER),
+                        new SqlParameter("root_department_ID", Types.INTEGER),
                         new SqlOutParameter("human_ID",Types.INTEGER),
                         new SqlOutParameter("ID", Types.INTEGER),
                         new SqlOutParameter("current_position", Types.INTEGER),
@@ -48,7 +48,7 @@ public class DepartmentRepository {
                         new SqlOutParameter("quit_date", Types.DATE)
                         );
 
-        Map<String, Object> employeeMap = simpleJdbcCall.execute(new MapSqlParameterSource("in_ID", employeeID));
+        Map<String, Object> employeeMap = simpleJdbcCall.execute(new MapSqlParameterSource("root_department_ID", rootDepartmentID));
         List<LinkedCaseInsensitiveMap> employeeList = (List<LinkedCaseInsensitiveMap>) employeeMap.get("#result-set-1");
 
         List<Employee> resultList = new ArrayList<>();

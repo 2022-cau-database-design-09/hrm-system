@@ -1116,11 +1116,11 @@ DELIMITER ;
 -- 프로시저 4 (권구현) 하위 부서 임직원 정보 조회 (본인 부서와 반복되는 하위 부서의 하위 부서 포함)
 DELIMITER //
 DROP PROCEDURE IF EXISTS AllEmployeesInChildDepartments//
-CREATE PROCEDURE AllEmployeesInChildDepartments(ID int)
+CREATE PROCEDURE AllEmployeesInChildDepartments(root_department_ID int)
 BEGIN
 	WITH RECURSIVE child_departments (department_ID) AS
     (
-		SELECT department_ID FROM DepartmentMember WHERE employee_ID=ID
+		SELECT root_department_ID
         UNION ALL
         SELECT h.child_department FROM DepartmentHierarchy AS h
         JOIN child_departments AS c ON c.department_ID=h.parent_department
