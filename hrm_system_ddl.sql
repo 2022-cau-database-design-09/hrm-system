@@ -1120,7 +1120,7 @@ CREATE PROCEDURE AllEmployeesInChildDepartments(ID int)
 BEGIN
 	WITH RECURSIVE child_departments (department_ID) AS
     (
-		SELECT ID
+		SELECT department_ID FROM DepartmentMember WHERE employee_ID=ID
         UNION ALL
         SELECT h.child_department FROM DepartmentHierarchy AS h
         JOIN child_departments AS c ON c.department_ID=h.parent_department
